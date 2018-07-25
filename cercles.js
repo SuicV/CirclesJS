@@ -9,6 +9,7 @@ function Cercle(canvasElement, circleStyle , percentage){
         w : canvasElement.offsetWidth ,
         h : canvasElement.offsetHeight
     };
+
     this.style = circleStyle ;
     this.content = canvasElement.getContext("2d");
     this.perc = percentage ;
@@ -20,11 +21,33 @@ function Cercle(canvasElement, circleStyle , percentage){
         }
         return center ;
     };
+
     this.porcToRad = function (porce){
+        if(this.style.hasOwnProperty("maxAngle")){
+            return this.style.maxAngle*porce/100 ;
+        }
         return 2*Math.PI*porce/100
     };
-    this.draw = function(){
 
+    this.getTextMiddle = function (text){
+        var textWdth = this.content.measureText(text).width;
+        var Size = 8; // DEFAULT FONT SIZE 16 PX
+        if(this.style.valueStyle.hasOwnProperty("font")){
+            var fontSize = /\d+px/.exec(this.style.valueStyle.font)[0].split(/[A-z]+/);
+            if(fontSize != null ){
+                Size = parseInt(fontSize);
+            }
+        }
+
+        return {
+            x:Math.round(textWdth/2),
+            y:Math.round(Size)/2
+        }
+    };
+
+    this.draw = function(){
+        this.content.beginPath();
+        this.clearCanvas();
         if(this.style.hasOwnProperty("lineForce")){
             this.content.lineWidth = this.style.lineForce ;
         }
@@ -36,23 +59,29 @@ function Cercle(canvasElement, circleStyle , percentage){
         this.content.stroke() ;
 
         if(this.style.hasOwnProperty("withValue") && this.style.withValue == true){
-            this.content.fillText(this.perc+"%",this.dims.w/2,this.dims.h/2);
+
+            if(this.style.valueStyle.hasOwnProperty("font")){
+                this.content.font = this.style.valueStyle.font ;
+            }
+            if(this.style.valueStyle.hasOwnProperty("color")){
+                this.content.fillStyle = this.style.valueStyle.color ;
+            }
+            var text= this.perc + "%",
+                textMiddle = this.getTextMiddle(text);
+            this.content.fillText(text,this.dims.w/2 - textMiddle.x
+                , this.dims.h/2 + textMiddle.y/2);
         }
 
     };
-    //this.clearCanvas = function (){
-    //    this.content.clearRect(0,0,this.dims.w,this.dims.h);
-    //};
+
+    this.clearCanvas = function (){
+        this.content.clearRect(0,0,this.dims.w,this.dims.h);
+    };
+
+    this.drawNewValue = function(value){
+        this.perc = value;
+        this.draw();
+    };
+
     this.draw();
 }
-var k = new Cercle(document.querySelector("#canvas"),
-    {
-        lineForce :10,
-        color: "rgb(55,60,45)",
-        withValue : true ,
-        valueStyle : {
-            color : "black",
-            font : "15px arial"
-        }
-    }
-    ,55);
