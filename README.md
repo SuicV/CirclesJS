@@ -21,13 +21,13 @@ you have to initialize new Circle object and set arguments
 **Attributes of the circle**
 > startAngle
 
-this attribute used to set the beginning angle of drawing in degree
+this attribute used to set the beginning angle of drawing in degree **(type int)**
 > lineForce
 
-used to set a width of circle line
+used to set a width of circle line **(type int)**
 > color
 
-the color of circle
+the color of circle (type String)
 
 **Attributes of wroth value in middle**
 
@@ -40,7 +40,7 @@ used to write a value in middle to do that set this attribute as true
 this attribute is an object can have the following attribute
 
 **1. font :**
-used to set the font style of the value
+used to set the font style of the value , you have to set the font size and the font family
 
 **2. color :**
 used to set the font color of the value
