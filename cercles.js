@@ -33,7 +33,7 @@ function Cercle(canvasElement, circleStyle , percentage){
 
     this.getTextMiddle = function (text){
         var textWdth = this.content.measureText(text).width;
-        var Size = 8; // DEFAULT FONT SIZE 16 PX
+        var Size = 16; // DEFAULT FONT SIZE 16 PX
         if(this.style.hasOwnProperty("valueStyle")){
             if(this.style.valueStyle.hasOwnProperty("font")){
                 var fontSize = /\d+px/.exec(this.style.valueStyle.font)[0].split(/[A-z]+/);
