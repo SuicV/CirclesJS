@@ -9,7 +9,6 @@ function Cercle(canvasElement, circleStyle , percentage){
         w : canvasElement.offsetWidth ,
         h : canvasElement.offsetHeight
     };
-
     this.style = circleStyle ;
     this.content = canvasElement.getContext("2d");
     this.perc = percentage ;
@@ -32,10 +31,12 @@ function Cercle(canvasElement, circleStyle , percentage){
     this.getTextMiddle = function (text){
         var textWdth = this.content.measureText(text).width;
         var Size = 8; // DEFAULT FONT SIZE 16 PX
-        if(this.style.valueStyle.hasOwnProperty("font")){
-            var fontSize = /\d+px/.exec(this.style.valueStyle.font)[0].split(/[A-z]+/);
-            if(fontSize != null ){
-                Size = parseInt(fontSize);
+        if(this.style.hasOwnProperty("valueStyle")){
+            if(this.style.valueStyle.hasOwnProperty("font")){
+                var fontSize = /\d+px/.exec(this.style.valueStyle.font)[0].split(/[A-z]+/);
+                if(fontSize != null ){
+                    Size = parseInt(fontSize);
+                }
             }
         }
 
@@ -59,15 +60,17 @@ function Cercle(canvasElement, circleStyle , percentage){
         this.content.stroke() ;
 
         if(this.style.hasOwnProperty("withValue") && this.style.withValue == true){
-
-            if(this.style.valueStyle.hasOwnProperty("font")){
-                this.content.font = this.style.valueStyle.font ;
-            }
-            if(this.style.valueStyle.hasOwnProperty("color")){
-                this.content.fillStyle = this.style.valueStyle.color ;
+            if(this.style.hasOwnProperty("valueStyle")){
+                if(this.style.valueStyle.hasOwnProperty("font")){
+                    this.content.font = this.style.valueStyle.font ;
+                }
+                if(this.style.valueStyle.hasOwnProperty("color")){
+                    this.content.fillStyle = this.style.valueStyle.color ;
+                }
             }
             var text= this.perc + "%",
                 textMiddle = this.getTextMiddle(text);
+            console.log(text);
             this.content.fillText(text,this.dims.w/2 - textMiddle.x
                 , this.dims.h/2 + textMiddle.y/2);
         }
