@@ -65,13 +65,17 @@ function Cercle(canvasElement, circleStyle , percentage){
         }
         // ADD START ANGLE
         if(this.style.hasOwnProperty("startAngle")){
-            startAngle = this.style.startAngle;
+            startAngle = degToRad(this.style.startAngle);
         }
         // DRAW CIRCLE
         this.content.arc(this.dims.w/2 , this.dims.h/2 ,
             this.getRayon(),startAngle,startAngle + endAngle);
         this.content.stroke() ;
-    };
+
+        if(this.style.hasOwnProperty("withValue") && this.style.withValue == true) {
+            this.writeText();
+        }
+        };
 
     this.clearCanvas = function (){
         this.content.clearRect(0,0,this.dims.w,this.dims.h);
@@ -79,25 +83,18 @@ function Cercle(canvasElement, circleStyle , percentage){
 
     this.writeText = function (){
         // WRITING VALUE IF DEVELOPER SET IT
-        if(this.style.hasOwnProperty("withValue") && this.style.withValue == true){
-            if(this.style.hasOwnProperty("valueStyle")){
-                if(this.style.valueStyle.hasOwnProperty("font")){
-                    this.content.font = this.style.valueStyle.font ;
-                }
-                if(this.style.valueStyle.hasOwnProperty("color")){
-                    this.content.fillStyle = this.style.valueStyle.color ;
-                }
+        if(this.style.hasOwnProperty("valueStyle")){
+            if(this.style.valueStyle.hasOwnProperty("font")){
+                this.content.font = this.style.valueStyle.font ;
             }
-            var text= this.perc + "%",
-                textMiddle = this.getTextMiddle(text);
-            this.content.fillText(text,this.dims.w/2 - textMiddle.x
-                , this.dims.h/2 + textMiddle.y/2);
+            if(this.style.valueStyle.hasOwnProperty("color")){
+                this.content.fillStyle = this.style.valueStyle.color ;
+            }
         }
+        var text= this.perc + "%",
+            textMiddle = this.getTextMiddle(text);
+        this.content.fillText(text,this.dims.w/2 - textMiddle.x
+            , this.dims.h/2 + textMiddle.y/2);
     };
-    //this.drawNewValue = function(value){
-    //    this.perc = value;
-    //    this.draw();
-    //};
     this.draw();
-    this.writeText();
 }
