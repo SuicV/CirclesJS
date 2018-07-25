@@ -1,3 +1,6 @@
+function degToRad(deg){
+    return deg*Math.PI/180 ;
+}
 /**
  * the main library
  * @param {object} canvasElement canvas dom element
@@ -25,7 +28,7 @@ function Cercle(canvasElement, circleStyle , percentage){
         if(this.style.hasOwnProperty("maxAngle")){
             return this.style.maxAngle*porce/100 ;
         }
-        return 2*Math.PI*porce/100
+        return 2*Math.PI*porce/100 ;
     };
 
     this.getTextMiddle = function (text){
@@ -81,10 +84,9 @@ function Cercle(canvasElement, circleStyle , percentage){
         this.content.clearRect(0,0,this.dims.w,this.dims.h);
     };
 
-    this.drawNewValue = function(value){
-        this.perc = value;
-        this.draw();
-    };
-
+    //this.drawNewValue = function(value){
+    //    this.perc = value;
+    //    this.draw();
+    //};
     this.draw();
 }
