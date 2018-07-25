@@ -52,16 +52,33 @@ function Cercle(canvasElement, circleStyle , percentage){
     this.draw = function(){
         this.content.beginPath();
         this.clearCanvas();
+        var startAngle = 0,
+            endAngle = this.porcToRad(this.perc);
+        // ADD CONFIG CONFIG OF CIRCLE
+        // ADD LINE WIDTH TO CIRCLE
         if(this.style.hasOwnProperty("lineForce")){
             this.content.lineWidth = this.style.lineForce ;
         }
+        // ADD COLOR TO CIRCLE
         if(this.style.hasOwnProperty("color")){
             this.content.strokeStyle = this.style.color;
         }
+        // ADD START ANGLE
+        if(this.style.hasOwnProperty("startAngle")){
+            startAngle = this.style.startAngle;
+        }
+        // DRAW CIRCLE
         this.content.arc(this.dims.w/2 , this.dims.h/2 ,
-            this.getRayon(),0,this.porcToRad(this.perc));
+            this.getRayon(),startAngle,startAngle + endAngle);
         this.content.stroke() ;
+    };
 
+    this.clearCanvas = function (){
+        this.content.clearRect(0,0,this.dims.w,this.dims.h);
+    };
+
+    this.writeText = function (){
+        // WRITING VALUE IF DEVELOPER SET IT
         if(this.style.hasOwnProperty("withValue") && this.style.withValue == true){
             if(this.style.hasOwnProperty("valueStyle")){
                 if(this.style.valueStyle.hasOwnProperty("font")){
@@ -73,20 +90,14 @@ function Cercle(canvasElement, circleStyle , percentage){
             }
             var text= this.perc + "%",
                 textMiddle = this.getTextMiddle(text);
-            console.log(text);
             this.content.fillText(text,this.dims.w/2 - textMiddle.x
                 , this.dims.h/2 + textMiddle.y/2);
         }
-
     };
-
-    this.clearCanvas = function (){
-        this.content.clearRect(0,0,this.dims.w,this.dims.h);
-    };
-
     //this.drawNewValue = function(value){
     //    this.perc = value;
     //    this.draw();
     //};
     this.draw();
+    this.writeText();
 }
