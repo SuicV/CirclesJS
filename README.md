@@ -32,7 +32,9 @@ the color of circle **(type String)**
 > withAnimation
 
 used to tell the object to animate drawing the circle from 0% to the given percentage **(type bool)**
+> withEndLine
 
+used to draw line from centre to end point of the filled circle **(type bool)**
 **Attributes of wroth value in middle**
 
 >withValue
