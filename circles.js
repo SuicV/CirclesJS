@@ -1,5 +1,6 @@
 window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
 window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
 /**
  * function return to convert degree angle to a radian angle
  * @param {number} deg the degree to convert
@@ -7,6 +8,7 @@ window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 function degToRad(deg){
     return deg*Math.PI/180 ;
 }
+
 /**
  * function to get a cartesian coordination from polar coordination
  * @param {Number} circleR the rayon of the circle
@@ -20,6 +22,7 @@ function getCordFromAngle(circleR, angle){
     pointCord["y"] =Math.round( y );
     return pointCord ;
 }
+
 /**
  * the main library
  * @param {object} canvasElement canvas dom element
@@ -53,7 +56,11 @@ function Circle(canvasElement, circleStyle , percentage){
         }
         return 2*Math.PI*perce/100 ;
     };
-
+    /**
+     * function get coordination of a text if it in the middle
+     * @param {String} text the value to write it in the middle of canvas
+     * @return {Object} contain coordination o
+     * */
     this.getTextMiddle = function (text){
         var textWdth = this.content.measureText(text).width;
         var Size = 16; // DEFAULT FONT SIZE 16 PX
@@ -98,6 +105,10 @@ function Circle(canvasElement, circleStyle , percentage){
             }
         }
     };
+
+    /**
+     * function to draw the all content of canvas
+     * */
     this.draw = function(){
         console.log(this.content.font);
         if(this.oldPerc <= this.perc ){
@@ -141,10 +152,14 @@ function Circle(canvasElement, circleStyle , percentage){
         }
     };
 
+    /** function to clear the canvas
+     * */
     this.clearCanvas = function (){
         this.content.clearRect(0,0,this.dims.w,this.dims.h);
     };
 
+    /** function to write the value in the middle of canvas
+     * */
     this.writeText = function (){
         this.setTextStyle() ;
 
