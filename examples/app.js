@@ -22,6 +22,7 @@ new Circle(document.querySelector(".addv2"),
         withEndLine : true ,
         withValue : true,
         withAnimation: true,
+        startAngle : 55,
         valueStyle : {
             color : "green",
             font:"30px Arial"
