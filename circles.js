@@ -1,10 +1,17 @@
 window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
 window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-
+/**
+ * function return to convert degree angle to a radian angle
+ * @param {number} deg the degree to convert
+ * */
 function degToRad(deg){
     return deg*Math.PI/180 ;
 }
-
+/**
+ * function to get a cartesian coordination from polar coordination
+ * @param {Number} circleR the rayon of the circle
+ * @param {Number} angle angle of the polar coordination
+ * */
 function getCordFromAngle(circleR, angle){
     var pointCord = {};
     var x = circleR + circleR*Math.cos(angle);
