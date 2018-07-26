@@ -47,16 +47,18 @@ function Circle(canvasElement, circleStyle , percentage){
         }
         return center ;
     };
+
     /**
      * function return an angle in radian
-     * @oaram {Number} perce of
+     * @param {Number} perce of
      * */
     this.porcToRad = function (perce){
         if(this.style.hasOwnProperty("maxAngle")){
-            return this.style.maxAngle*porce/100 ;
+            return this.style.maxAngle* perce/100 ;
         }
         return 2*Math.PI*perce/100 ;
     };
+
     /**
      * function get coordination of a text if it in the middle
      * @param {String} text the value to write it in the middle of canvas
@@ -65,6 +67,7 @@ function Circle(canvasElement, circleStyle , percentage){
     this.getTextMiddle = function (text){
         var textWdth = this.content.measureText(text).width;
         var Size = 16; // DEFAULT FONT SIZE 16 PX
+
         if(this.style.hasOwnProperty("valueStyle")){
             if(this.style.valueStyle.hasOwnProperty("font")){
                 var fontSize = /\d+px/.exec(this.style.valueStyle.font)[0].split(/[A-z]+/);
@@ -73,12 +76,12 @@ function Circle(canvasElement, circleStyle , percentage){
                 }
             }
         }
-
         return {
             x:Math.round(textWdth/2),
             y:Math.round(Size)/2
         }
     };
+
     /**
      * function to set style of circle
      * */
@@ -92,6 +95,7 @@ function Circle(canvasElement, circleStyle , percentage){
             this.content.strokeStyle = this.style.color;
         }
     };
+
     /**
      * function to set style of text
      * */
@@ -111,7 +115,6 @@ function Circle(canvasElement, circleStyle , percentage){
      * function to draw the all content of canvas
      * */
     this.draw = function(){
-        console.log(this.content.font);
         if(this.oldPerc <= this.perc ){
 
             this.content.beginPath();
@@ -120,7 +123,7 @@ function Circle(canvasElement, circleStyle , percentage){
             var startAngle = 0,
                 endAngle = this.porcToRad(this.oldPerc);
 
-            // ADD CONFIG CONFIG OF CIRCLE
+            // ADD STYLE CONFIG OF CIRCLE
 
             this.setCircleStyle();
 
@@ -167,9 +170,11 @@ function Circle(canvasElement, circleStyle , percentage){
 
         var text= this.oldPerc + "%",
             textMiddle = this.getTextMiddle(text);
+
         this.content.fillText(text,this.dims.w/2 - textMiddle.x
             , this.dims.h/2 + textMiddle.y/2);
     };
+
     /**
      * function to draw the line in the end of filled circle
      * @param {Number} angle radian angle
@@ -178,8 +183,8 @@ function Circle(canvasElement, circleStyle , percentage){
         var endPoint = getCordFromAngle(this.dims.w/2,angle);
         this.content.lineWidth = 4 ;
         this.content.beginPath();
-        this.content.moveTo(this.dims.w/2 , this.dims.h/2);
-        this.content.lineTo(endPoint.x , endPoint.y );
+        this.content.moveTo(endPoint.x , endPoint.y );
+        this.content.lineTo(this.dims.w/2, this.dims.h/2);
         this.content.stroke();
     };
 
