@@ -1,9 +1,9 @@
 /* BASIC USAGE EXAMPLE*/
-var basic = new Cercle(document.querySelector("#basic-usage"),{},90);
+var basic = new Circle(document.querySelector("#basic-usage"),{},90);
 /* ADVANCED USAGE EXAMPLES */
 
 // ANIMATION EXAMPLE
-var addvanced = new Cercle(document.querySelector(".addv1"),
+var addvanced = new Circle(document.querySelector(".addv1"),
     {
         lineForce : 10 ,
         color : "gold",
@@ -15,7 +15,7 @@ var addvanced = new Cercle(document.querySelector(".addv1"),
         }
     },90);
 // CUSTOMIZE THE WROTH VALUE
-var addvanced2 = new Cercle(document.querySelector(".addv2"),
+var addvanced2 = new Circle(document.querySelector(".addv2"),
     {
         lineForce : 25 ,
         color : "red",

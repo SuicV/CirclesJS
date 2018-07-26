@@ -10,7 +10,7 @@ function degToRad(deg){
  * @param {object} circleStyle object contain the circle styles
  * @param {Number} percentage number to design percentage of filled circle
  * */
-function Cercle(canvasElement, circleStyle , percentage){
+function Circle(canvasElement, circleStyle , percentage){
     this.dims = {
         w : canvasElement.offsetWidth ,
         h : canvasElement.offsetHeight
