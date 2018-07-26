@@ -5,7 +5,8 @@ var addvanced = new Cercle(document.querySelector(".addv1"),
         color : "gold",
         startAngle : 20,
         withValue : true,
+        withAnimation : true ,
         valueStyle : {
             font:"20px Arial"
         }
-    },10);
+    },90);
