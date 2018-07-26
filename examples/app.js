@@ -1,9 +1,9 @@
 /* BASIC USAGE EXAMPLE*/
-var basic = new Circle(document.querySelector("#basic-usage"),{},90);
+new Circle(document.querySelector("#basic-usage"),{},90);
 /* ADVANCED USAGE EXAMPLES */
 
 // ANIMATION EXAMPLE
-var addvanced = new Circle(document.querySelector(".addv1"),
+new Circle(document.querySelector(".addv1"),
     {
         lineForce : 10 ,
         color : "gold",
@@ -15,14 +15,15 @@ var addvanced = new Circle(document.querySelector(".addv1"),
         }
     },90);
 // CUSTOMIZE THE WROTH VALUE
-var addvanced2 = new Circle(document.querySelector(".addv2"),
+new Circle(document.querySelector(".addv2"),
     {
-        lineForce : 25 ,
+        lineForce :14 ,
         color : "red",
-        startAngle : 20,
+        withEndLine : true ,
         withValue : true,
+        withAnimation: true,
         valueStyle : {
             color : "green",
             font:"30px Arial"
         }
-    },54);
+    },100);
