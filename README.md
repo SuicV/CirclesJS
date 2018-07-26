@@ -3,7 +3,8 @@ Circles library
 
 introduction
 ------------
-**Circles** is a small javascript library to create **_percentage circle_** using canvas
+**Circles** is a small javascript library to create **_percentage circle_** using canvas .
+*by default the circle will take all width and height*
 
 features
 --------
@@ -27,7 +28,10 @@ this attribute used to set the beginning angle of drawing in degree **(type int)
 used to set a width of circle line **(type int)**
 > color
 
-the color of circle (type String)
+the color of circle **(type String)**
+> withAnimation
+
+used to tell the object to animate drawing the circle from 0% to the given percentage **(type bool)**
 
 **Attributes of wroth value in middle**
 
@@ -40,10 +44,10 @@ used to write a value in middle to do that set this attribute as true
 this attribute is an object can have the following attribute
 
 **1. font :**
-used to set the font style of the value , you have to set the font size and the font family
+used to set the font style of the value , you have to set the font size and the font family **(type string)**
 
 **2. color :**
-used to set the font color of the value
+used to set the font color of the value **(type string)**
 
 Examples
 --------
