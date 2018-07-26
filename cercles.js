@@ -1,3 +1,6 @@
+window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
 function degToRad(deg){
     return deg*Math.PI/180 ;
 }
@@ -15,6 +18,7 @@ function Cercle(canvasElement, circleStyle , percentage){
     this.style = circleStyle ;
     this.content = canvasElement.getContext("2d");
     this.perc = percentage ;
+    this.oldPerc = 0;
 
     this.getRayon = function (){
         var center = this.dims.w/2;
@@ -50,32 +54,41 @@ function Cercle(canvasElement, circleStyle , percentage){
     };
 
     this.draw = function(){
-        this.content.beginPath();
-        this.clearCanvas();
-        var startAngle = 0,
-            endAngle = this.porcToRad(this.perc);
-        // ADD CONFIG CONFIG OF CIRCLE
-        // ADD LINE WIDTH TO CIRCLE
-        if(this.style.hasOwnProperty("lineForce")){
-            this.content.lineWidth = this.style.lineForce ;
-        }
-        // ADD COLOR TO CIRCLE
-        if(this.style.hasOwnProperty("color")){
-            this.content.strokeStyle = this.style.color;
-        }
-        // ADD START ANGLE
-        if(this.style.hasOwnProperty("startAngle")){
-            startAngle = degToRad(this.style.startAngle);
-        }
-        // DRAW CIRCLE
-        this.content.arc(this.dims.w/2 , this.dims.h/2 ,
-            this.getRayon(),startAngle,startAngle + endAngle);
-        this.content.stroke() ;
+        if(this.oldPerc <= this.perc ){
+            this.content.beginPath();
+            this.clearCanvas();
+            var startAngle = 0,
+                endAngle = this.porcToRad(this.oldPerc);
+            // ADD CONFIG CONFIG OF CIRCLE
+            // ADD LINE WIDTH TO CIRCLE
+            if(this.style.hasOwnProperty("lineForce")){
+                this.content.lineWidth = this.style.lineForce ;
+            }
+            // ADD COLOR TO CIRCLE
+            if(this.style.hasOwnProperty("color")){
+                this.content.strokeStyle = this.style.color;
+            }
+            // ADD START ANGLE
+            if(this.style.hasOwnProperty("startAngle")){
+                startAngle = degToRad(this.style.startAngle);
+            }
+            // DRAW CIRCLE
+            this.content.arc(this.dims.w/2 , this.dims.h/2 ,
+                this.getRayon(),startAngle,startAngle + endAngle);
+            this.content.stroke() ;
+            // write the value in middle 
+            if(this.style.hasOwnProperty("withValue") && this.style.withValue == true) {
+                this.writeText();
+            }
+            // when you set withAnimation attribute
+            if(this.style.withAnimation == true){
 
-        if(this.style.hasOwnProperty("withValue") && this.style.withValue == true) {
-            this.writeText();
+                this.oldPerc += 1 ;
+
+                window.requestAnimationFrame(this.draw.bind(this));
+            }
         }
-        };
+    };
 
     this.clearCanvas = function (){
         this.content.clearRect(0,0,this.dims.w,this.dims.h);
@@ -91,10 +104,17 @@ function Cercle(canvasElement, circleStyle , percentage){
                 this.content.fillStyle = this.style.valueStyle.color ;
             }
         }
-        var text= this.perc + "%",
+        var text= this.oldPerc + "%",
             textMiddle = this.getTextMiddle(text);
         this.content.fillText(text,this.dims.w/2 - textMiddle.x
             , this.dims.h/2 + textMiddle.y/2);
     };
-    this.draw();
+    if(this.style.hasOwnProperty("withAnimation")){
+        if(this.style.withAnimation == true){
+            this.draw();
+        }
+    }else{
+        this.oldPerc = this.perc ;
+        this.draw();
+    }
 }
