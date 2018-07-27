@@ -21,6 +21,17 @@ you have to initialize new Circle object and set arguments
 
 #### Available attributes for the second argument
 **Attributes of the circle**
+> valueType
+
+used to determinate type of the value that will the circle draw this argument **obligated**,
+you can use the following const
+* NUMB : to draw a number
+* PERC : to draw a percentage
+
+> maxValue
+
+used to specify the max value can the cirle draw this argument **obligated** **(type int)**
+
 > startAngle
 
 this attribute used to set the beginning angle of drawing in degree **(type int)**

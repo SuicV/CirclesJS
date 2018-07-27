@@ -1,3 +1,7 @@
+const PERC = "percentage",NUMB= "number";
+/*
+* requestAnimationFrame polyfille
+* */
 window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
 window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
@@ -49,13 +53,15 @@ function Circle(canvasElement, circleStyle , percentage){
 
     /**
      * function return an angle in radian
-     * @param {Number} perce  percentage to convert in angle
+     * @param {Number} value  percentage to convert in angle
      * */
-    this.porcToRad = function (perce){
-        if(this.style.hasOwnProperty("maxAngle")){
-            return this.style.maxAngle * perce/100 ;
+    this.porcToRad = function (value){
+        if(this.style.hasOwnProperty("maxValue")){
+            if(this.style.hasOwnProperty("maxAngle")){
+                return this.style.maxAngle * value/this.style.maxValue ;
+            }
+            return 2*Math.PI*value/this.style.maxValue ;
         }
-        return 2*Math.PI*perce/100 ;
     };
 
     /**
@@ -158,7 +164,8 @@ function Circle(canvasElement, circleStyle , percentage){
         }
     };
 
-    /** function to clear the canvas
+    /**
+     * function to clear the canvas
      * */
     this.clearCanvas = function (){
         this.content.clearRect(0,0,this.dims.w,this.dims.h);
@@ -169,8 +176,11 @@ function Circle(canvasElement, circleStyle , percentage){
     this.writeText = function (){
         this.setTextStyle() ;
 
-        var text= this.oldPerc + "%",
-            textMiddle = this.getTextMiddle(text);
+        var text= String(this.oldPerc) ;
+        if(this.style.valueType == PERC){
+            text += "%";
+        }
+        var textMiddle = this.getTextMiddle(String(text));
 
         this.content.fillText(text,this.dims.w/2 - textMiddle.x
             , this.dims.h/2 + textMiddle.y/2);
