@@ -50,11 +50,11 @@ function Circle(canvasElement, circleStyle , percentage){
 
     /**
      * function return an angle in radian
-     * @param {Number} perce of
+     * @param {Number} perce  percentage to convert in angle
      * */
     this.porcToRad = function (perce){
         if(this.style.hasOwnProperty("maxAngle")){
-            return this.style.maxAngle* perce/100 ;
+            return this.style.maxAngle * perce/100 ;
         }
         return 2*Math.PI*perce/100 ;
     };
@@ -69,7 +69,7 @@ function Circle(canvasElement, circleStyle , percentage){
         var Size = 16; // DEFAULT FONT SIZE 16 PX
 
         if(this.style.hasOwnProperty("valueStyle")){
-            if(this.style.valueStyle.hasOwnProperty("font")){
+            if(this.style.valueStyle.font != ""){
                 var fontSize = /\d+px/.exec(this.style.valueStyle.font)[0].split(/[A-z]+/);
                 if(fontSize != null ){
                     Size = parseInt(fontSize);
@@ -102,10 +102,10 @@ function Circle(canvasElement, circleStyle , percentage){
     this.setTextStyle = function (){
         // WRITING VALUE IF DEVELOPER SET IT
         if(this.style.hasOwnProperty("valueStyle")){
-            if(this.style.valueStyle.hasOwnProperty("font")){
+            if(this.style.valueStyle.font !="" ){
                 this.content.font = this.style.valueStyle.font ;
             }
-            if(this.style.valueStyle.hasOwnProperty("color")){
+            if(this.style.valueStyle.color != "" ){
                 this.content.fillStyle = this.style.valueStyle.color ;
             }
         }
@@ -137,7 +137,9 @@ function Circle(canvasElement, circleStyle , percentage){
                 this.getRayon(),startAngle,startAngle + endAngle);
 
             this.content.stroke() ;
-
+            if(this.style.fillCirclRest == true){
+                this.fillCircleRest(startAngle + endAngle , startAngle) ;
+            }
             // DRAW END LINE
             if(this.style.withEndLine == true){
                 this.drawEndLine(startAngle + endAngle);
@@ -180,11 +182,43 @@ function Circle(canvasElement, circleStyle , percentage){
      * @param {Number} angle radian angle
      * */
     this.drawEndLine = function(angle){
+
         var endPoint = getCordFromAngle(this.dims.w/2,angle);
+
         this.content.lineWidth = 4 ;
         this.content.beginPath();
         this.content.moveTo(endPoint.x , endPoint.y );
         this.content.lineTo(this.dims.w/2, this.dims.h/2);
+        this.content.stroke();
+
+    };
+
+    /**
+     * function to fill the rest of circle
+     * @param {number} startAngle radian angle
+     * @param {number} endAngle radian angle
+     * */
+    this.fillCircleRest = function (startAngle , endAngle){
+
+        this.content.beginPath();
+        this.content.strokeStyle = "black";
+        if(this.style.hasOwnProperty("fillRestStyle")){
+            if(this.style.fillRestStyle.color != ""){
+                this.content.strokeStyle = this.style.fillRestStyle.color;
+            }
+        }
+
+        // ADD START ANGLE
+        if(this.style.hasOwnProperty("maxAngle")){
+            endAngle = this.style.maxAngle ;
+            if(this.style.startAngle>0){
+                endAngle += degToRad(this.style.startAngle);
+            }
+        }
+
+        this.content.arc(this.dims.w/2 , this.dims.h/2 ,
+            this.getRayon(),startAngle,endAngle);
+
         this.content.stroke();
     };
 

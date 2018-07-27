@@ -7,12 +7,16 @@ new Circle(document.querySelector(".addv1"),
     {
         lineForce : 10 ,
         color : "gold",
-        startAngle : 20,
         withValue : true,
         withAnimation : true ,
         valueStyle : {
             font:"20px Arial"
-        }
+        },
+        fillCirclRest : true,
+        fillRestStyle : {
+            color:"red"
+        },
+        startAngle : 180
     },90);
 // CUSTOMIZE THE WROTH VALUE
 new Circle(document.querySelector(".addv2"),
@@ -21,10 +25,15 @@ new Circle(document.querySelector(".addv2"),
         color : "red",
         withEndLine : true ,
         withValue : true,
-        withAnimation: true,
-        startAngle : 55,
+        withAnimation : true ,
+        startAngle : 180,
         valueStyle : {
             color : "green",
             font:"30px Arial"
+        },
+        maxAngle : Math.PI ,
+        fillCirclRest: true ,
+        fillRestStyle : {
+            color : "green"
         }
     },100);
