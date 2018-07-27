@@ -14,7 +14,6 @@ function degToRad(deg){
  * @param {Number} circleR the rayon of the circle
  * @param {Number} angle angle of the polar coordination
  * */
-
 function getCordFromAngle(circleR, angle){
     var pointCord = {};
     var x = circleR + circleR*Math.cos(angle);

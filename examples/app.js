@@ -20,8 +20,8 @@ new Circle(document.querySelector(".addv2"),
         lineForce :14 ,
         color : "#0093b3",
         withValue : true,
-        withAnimation : true ,
-        startAngle : 150,
+        withAnimation: true,
+        startAngle : 55,
         valueStyle : {
             color : "#0093b3",
             font:"30px Arial"
