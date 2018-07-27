@@ -10,6 +10,7 @@ features
 --------
 * start draw circle from a given angle
 * styling circle and written percentage on middle
+* animate filling circle and written percentage
 
 how to use it
 -------------
@@ -45,7 +46,8 @@ used to tell the object to fill unfilled range on the circle **(type bool)**
 
 > fillRestStyle
 
-this attribute is to set the style of filling the rest of circle **(type object)** contain the following attributes
+this attribute is to set the style of filling the rest of circle **(type object)**
+contain the following attributes
 
 **1. color :** to set the color by default the color is black set this attribute to change it
 

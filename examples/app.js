@@ -12,28 +12,23 @@ new Circle(document.querySelector(".addv1"),
         valueStyle : {
             font:"20px Arial"
         },
-        fillCirclRest : true,
-        fillRestStyle : {
-            color:"red"
-        },
         startAngle : 180
     },90);
 // CUSTOMIZE THE WROTH VALUE
 new Circle(document.querySelector(".addv2"),
     {
         lineForce :14 ,
-        color : "red",
-        withEndLine : true ,
+        color : "#0093b3",
         withValue : true,
         withAnimation : true ,
-        startAngle : 180,
+        startAngle : 150,
         valueStyle : {
-            color : "green",
+            color : "#0093b3",
             font:"30px Arial"
         },
-        maxAngle : Math.PI ,
-        fillCirclRest: true ,
+        maxAngle : degToRad(240) ,
+        fillCirclRest: true,
         fillRestStyle : {
-            color : "green"
+            color :"#f6f6f6"
         }
-    },100);
+    },55);
