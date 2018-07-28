@@ -42,7 +42,7 @@ function Circle(canvasElement, circleStyle , percentage){
     this.content = canvasElement.getContext("2d");
     this.perc = percentage ;
     this.oldPerc = 0;
-
+    this.currentTime = 0 ;
     this.getRayon = function (){
         var center = this.dims.w/2;
         if(this.style.hasOwnProperty("lineForce") && this.style.lineForce > 1 ){
@@ -154,14 +154,42 @@ function Circle(canvasElement, circleStyle , percentage){
             if(this.style.hasOwnProperty("withValue") && this.style.withValue == true) {
                 this.writeText();
             }
+
             // when you set withAnimation attribute
             if(this.style.withAnimation == true){
-
-                this.oldPerc += 1 ;
-
-                window.requestAnimationFrame(this.draw.bind(this));
+                this.animate();
             }
+        }else{
+            this.currentTime = 0 ;
+            this.oldPerc = 0 ;
         }
+    };
+
+    /**
+     * function for animations
+     * */
+    this.animate = function(){
+
+        if(!this.style.hasOwnProperty("animationDuration")){
+            this.style.animationDuration = 1000 ;
+        }
+
+        if(this.currentTime <= this.style.animationDuration ){
+            this.oldPerc = this.liniarAnimation(0,this.perc,this.style.animationDuration , this.currentTime) ;
+            window.requestAnimationFrame(this.draw.bind(this));
+            this.currentTime += 10
+        }
+    };
+    /**
+     * function to get value to draw in relation with time
+     * @param {number} from animation start from
+     * @param {number} to the value to draw
+     * @param {number} duration duration of animation
+     * @param {number} time current time
+     * @return {number} value to draw
+     * */
+    this.liniarAnimation = function (from , to , duration , time){
+        return Math.round(time*(to/duration-from/duration));
     };
 
     /**
@@ -171,7 +199,8 @@ function Circle(canvasElement, circleStyle , percentage){
         this.content.clearRect(0,0,this.dims.w,this.dims.h);
     };
 
-    /** function to write the value in the middle of canvas
+    /**
+     * function to write the value in the middle of canvas
      * */
     this.writeText = function (){
         this.setTextStyle() ;

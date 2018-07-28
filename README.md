@@ -47,6 +47,10 @@ the color of circle **(type String)**
 
 used to tell the object to animate drawing the circle from 0% to the given percentage **(type bool)**
 
+> animationDuration
+
+this attribute used to set a time in ms to fill the circle **(type int)** by default is 1000 ms
+
 > withEndLine
 
 used to draw line from centre to end point of the filled circle **(type bool)**
