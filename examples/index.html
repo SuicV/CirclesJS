@@ -1,32 +1,128 @@
 <!doctype html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Cercles Examples</title>
-</head>
-<body>
+	<head>
+		<meta charset="UTF-8">
+		<title>Cercles Examples</title>
+		<link rel="stylesheet" href="prism.css"/>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
+	</head>
+	<body>
+	<header class="navbar navbar-expand-lg  navbar-dark bg-dark">
+		<div class="container">
+			<a class="navbar-brand" href="#">Circles</a>
+		</div>
+	</header><!-- END OF HEADER-->
 
-	<!-- BASIC USAGE -->
-	<h2>basic usage</h2>
-	<p>here the library draw a circle with arc of 90%</p>
-	<canvas id="basic-usage" width="150" height="150"></canvas>
-
-	<!-- ADVANCED USAGE -->
-	<h2>advanced usage</h2>
-	<div style="display: flex ; flex-flow: row wrap ; justify-content: space-around">
-
-		<div style="width:250px;" >
-			<p>circle with animation and customize the written value </p>
-			<canvas class="addv1" width="150" height="150"></canvas>
+	<!-- CONTAINER -->
+	<div class="container">
+		<div>
+			<!-- BASIC USAGE -->
+			<h2>basic usage</h2>
+			<p>here the library draw a circle with arc of 90% with default settings of canvas
+				,with out write the percentage in middle of the circle</p>
+			<pre>
+<code class="language-js">
+new Circle(document.querySelector("#basic-usage"),{
+		valueType : PERC,
+		maxValue : 100
+	},90).startDrawing();
+</code>
+			</pre>
+			<canvas id="basic-usage" width="150" height="150"></canvas>
 		</div>
 
-		<div style="width:250px;" >
-			<p >circle with filling rest of circle</p>
-			<canvas class="addv2" width="150" height="150"></canvas>
+		<!-- ADVANCED USAGE -->
+		<h2>advanced usage</h2>
+		<div class="row">
+			<div class="col-12" >
+				<p>circle with animation and customize the written value </p>
+				<pre style="height: 300px;">
+<code class="language-js">
+new Circle(document.querySelector(".addv1"),
+	{
+		//border width of the circle
+		lineForce : 10 ,
+		//color of the circle
+		color : "gold",
+		//to write percentage in middle
+		withValue : true,
+		//to animate filling circle
+		withAnimation : true ,
+		//styling percentage
+		valueStyle : {
+			// set font style
+			font:"20px Arial",
+			// set color
+			color : "red"
+		},
+		// set angle of start drawing the circle
+		startAngle : 46,
+		// type of value that you wanna the circle present
+		valueType : PERC,
+		// max value
+		maxValue : 100,
+		// animation duration
+		animationDuration : 5000
+	},90).startDrawing();
+</code>
+				</pre>
+				<canvas class="addv1" width="150" height="150"></canvas>
+			</div>
+
+			<div class="col-12" >
+				<p>circle with filling the rest, customizing value and start drawing when the canvas visible on the page for the first time </p>
+				<span class="alert alert-info">by default the animation Duration is 1s </span>
+				<pre style="height: 300px; margin-top: 20px;">
+<code class="language-js">
+	var circle = new Circle(document.querySelector(".addv2"),
+	{
+		//border width of the circle
+		lineForce :10 ,
+		//color of the circle
+		color : "#0093b3",
+	    //to write the value in middle
+		withValue : true,
+		//to draw with animation
+		withAnimation : true ,
+		//angle of start drawing
+		startAngle : 150,
+		//styling value
+		valueStyle : {
+			// color of value
+			color : "#0093b3",
+			// font of the value
+			font:"30px Arial"
+		},
+		//max angle of the circle
+		maxAngle : (240) ,
+		//to fill the rest of circle
+		fillCirclRest: true,
+		//styling the rest of circle
+		fillRestStyle : {
+			//set color
+			color :"#86e1ff"
+		},
+
+		valueType : NUMB,
+		maxValue : 10000
+	},9000);
+// START DRAWING WHEN IT'S VISIBLE IN PAGE
+document.addEventListener("scroll", function(){
+	if(window.scrollY >= window.scrollMaxY - 50 ){
+		if(!circle.drawing ){
+
+			circle.startDrawing();
+		}
+	}
+});
+</code>
+				</pre>
+				<canvas class="addv2" width="150" height="150"></canvas>
+			</div>
 		</div>
 	</div>
-	<script src="../circles.js"></script>
-	<script src="app.js"></script>
-
-</body>
+		<script src="prism.js"></script>
+		<script src="../circles.js"></script>
+		<script src="app.js"></script>
+	</body>
 </html>

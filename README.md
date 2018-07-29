@@ -11,6 +11,7 @@ features
 * start draw circle from a given angle
 * styling circle and written percentage on middle
 * animate filling circle and written percentage
+* compatible with mobiles
 
 how to use it
 -------------
@@ -35,6 +36,10 @@ used to specify the max value can the cirle draw this argument **obligated** **(
 > startAngle
 
 this attribute used to set the beginning angle of drawing in degree **(type int)**
+
+>maxAngle
+
+used to specify the max angle of the circle in degree **(type int)**
 
 > lineForce
 
@@ -77,10 +82,13 @@ used to write a value in middle to do that set this attribute as true
 this attribute is an object can have the following attribute
 
 **1. font :**
-used to set the font style of the value , you have to set the font size and the font family **(type string)**
+used to set the font style of the value , you have to set the font size and the font family
+**(type string)**
 
 **2. color :**
 used to set the font color of the value **(type string)**
+
+**Important Note** : to start drawing you have to call startDrawing Method we add this method to start drawing with the scroll
 
 Examples
 --------

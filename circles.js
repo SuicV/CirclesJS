@@ -43,6 +43,7 @@ function Circle(canvasElement, circleStyle , percentage){
     this.perc = percentage ;
     this.oldPerc = 0;
     this.currentTime = 0 ;
+    this.drawing = false ;
     this.getRayon = function (){
         var center = this.dims.w/2;
         if(this.style.hasOwnProperty("lineForce") && this.style.lineForce > 1 ){
@@ -58,7 +59,7 @@ function Circle(canvasElement, circleStyle , percentage){
     this.porcToRad = function (value){
         if(this.style.hasOwnProperty("maxValue")){
             if(this.style.hasOwnProperty("maxAngle")){
-                return this.style.maxAngle * value/this.style.maxValue ;
+                return degToRad(this.style.maxAngle) * value/this.style.maxValue ;
             }
             return 2*Math.PI*value/this.style.maxValue ;
         }
@@ -120,6 +121,11 @@ function Circle(canvasElement, circleStyle , percentage){
      * function to draw the all content of canvas
      * */
     this.draw = function(){
+
+        if(this.drawing == false ){
+            this.drawing = true ;
+        }
+
         if(this.oldPerc <= this.perc ){
 
             this.content.beginPath();
@@ -159,9 +165,6 @@ function Circle(canvasElement, circleStyle , percentage){
             if(this.style.withAnimation == true){
                 this.animate();
             }
-        }else{
-            this.currentTime = 0 ;
-            this.oldPerc = 0 ;
         }
     };
 
@@ -248,7 +251,7 @@ function Circle(canvasElement, circleStyle , percentage){
 
         // ADD START ANGLE
         if(this.style.hasOwnProperty("maxAngle")){
-            endAngle = this.style.maxAngle ;
+            endAngle = degToRad(this.style.maxAngle) ;
             if(this.style.startAngle>0){
                 endAngle += degToRad(this.style.startAngle);
             }
@@ -259,14 +262,20 @@ function Circle(canvasElement, circleStyle , percentage){
 
         this.content.stroke();
     };
+    this.startDrawing = function (){
+        this.currentTime = 0 ;
+        this.oldPerc = 0 ;
+        this.drawing = false ;
 
-    // WHEN DEV CREATE INSTANCE OF THIS OBJECT
-    if(this.style.hasOwnProperty("withAnimation")){
-        if(this.style.withAnimation == true){
+        // WHEN DEV CREATE INSTANCE OF THIS OBJECT
+        if(this.style.hasOwnProperty("withAnimation")){
+            if(this.style.withAnimation == true){
+                this.draw();
+            }
+        }else{
+            this.oldPerc = this.perc ;
             this.draw();
         }
-    }else{
-        this.oldPerc = this.perc ;
-        this.draw();
+        return this ;
     }
 }
