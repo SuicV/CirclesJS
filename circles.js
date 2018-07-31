@@ -1,4 +1,4 @@
-const PERC = "percentage",NUMB= "number";
+const PERC = "percentage",NUMB= "number", TIME ="time";
 /*
 * requestAnimationFrame polyfille
 * */
@@ -31,12 +31,12 @@ function STimeToTimeStamp(string){
 }
 /**
  * function to add zero's to the beginning of number
- * @param {number} numb which you wanna add zero's
+ * @param {string} numb which you wanna add zero's
  * @param {number} MaxLength length of number as string start from 0
  * */
 function withZero(numb,MaxLength){
     var res = String(numb);
-    if(!isNaN(parseInt(numb)) && MaxLength > 0){
+    if(!isNaN(parseInt(numb)) && MaxLength >= 0){
         for(var i = String(numb).length ; i< MaxLength ; i++){
             res = "0"+res;
         }
@@ -59,10 +59,8 @@ function TimeStampToString(timeStamp){
                 String += "0:";
             }
         }
-        if(timeStamp>0){
+        if(timeStamp>=0){
             String += withZero(window.String(Math.floor(timeStamp)),2);
-        }else{
-            String += "00";
         }
     }
     return String ;
@@ -240,7 +238,6 @@ function Circle(canvasElement, circleStyle , percentage){
         if(this.currentTime <= this.style.animationDuration ){
             var value = 0 ;
             if(this.oldPerc < this.perc){
-
                 value = this.linearAnimation(this.oldPerc,this.perc,this.style.animationDuration , this.currentTime) ;
             }else{
                 value = this.linearAnimation(this.oldPerc,this.perc,this.style.animationDuration , this.currentTime) ;
@@ -281,6 +278,8 @@ function Circle(canvasElement, circleStyle , percentage){
         var text= String(value) ;
         if(this.style.valueType == PERC){
             text += "%";
+        }else if(this.style.valueType == TIME){
+            text = TimeStampToString(value);
         }
         var textMiddle = this.getTextMiddle(String(text));
 
