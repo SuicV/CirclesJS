@@ -44,6 +44,7 @@ function Circle(canvasElement, circleStyle , percentage){
     this.oldPerc = 0;
     this.currentTime = 0 ;
     this.drawing = false ;
+
     this.getRayon = function (){
         var center = this.dims.w/2;
         if(this.style.hasOwnProperty("lineForce") && this.style.lineForce > 1 ){
@@ -127,7 +128,7 @@ function Circle(canvasElement, circleStyle , percentage){
     /**
      * function to draw the all content of canvas
      * */
-    this.draw = function(){
+    this.draw = function(value){
 
         if(this.drawing == false ){
             this.drawing = true ;
@@ -137,7 +138,7 @@ function Circle(canvasElement, circleStyle , percentage){
         this.clearCanvas();
 
         var startAngle = 0,
-            endAngle = this.porcToRad(this.oldPerc);
+            endAngle = this.porcToRad(value);
 
         // ADD STYLE CONFIG OF CIRCLE
 
@@ -163,7 +164,7 @@ function Circle(canvasElement, circleStyle , percentage){
 
         // write the value in middle
         if(this.style.hasOwnProperty("withValue") && this.style.withValue == true) {
-            this.writeText();
+            this.writeText(value);
         }
 
         // when you set withAnimation attribute
@@ -182,9 +183,19 @@ function Circle(canvasElement, circleStyle , percentage){
         }
 
         if(this.currentTime <= this.style.animationDuration ){
-            this.oldPerc = this.liniarAnimation(0,this.perc,this.style.animationDuration , this.currentTime) ;
-            window.requestAnimationFrame(this.draw.bind(this));
-            this.currentTime += 10
+            var value = 0 ;
+            if(this.oldPerc < this.perc){
+
+                value = this.linearAnimation(this.oldPerc,this.perc,this.style.animationDuration , this.currentTime) ;
+            }else{
+                value = this.linearAnimation(this.oldPerc,this.perc,this.style.animationDuration , this.currentTime) ;
+
+            }
+            window.requestAnimationFrame(this.draw.bind(this,value));
+            this.currentTime += 10 ;
+        }else {
+            this.oldPerc = this.perc ;
+            this.currentTime = 0;
         }
     };
     /**
@@ -195,8 +206,8 @@ function Circle(canvasElement, circleStyle , percentage){
      * @param {number} time current time
      * @return {number} value to draw
      * */
-    this.liniarAnimation = function (from , to , duration , time){
-        return Math.round(time*(to/duration-from/duration));
+    this.linearAnimation = function (from , to , duration , time){
+        return Math.round(time*(to/duration-from/duration)+this.oldPerc);
     };
 
     /**
@@ -209,10 +220,10 @@ function Circle(canvasElement, circleStyle , percentage){
     /**
      * function to write the value in the middle of canvas
      * */
-    this.writeText = function (){
+    this.writeText = function (value){
         this.setTextStyle() ;
 
-        var text= String(this.oldPerc) ;
+        var text= String(value) ;
         if(this.style.valueType == PERC){
             text += "%";
         }
@@ -265,15 +276,22 @@ function Circle(canvasElement, circleStyle , percentage){
 
         this.content.stroke();
     };
+
+    this.setValue = function (value){
+        this.perc = value ;
+    };
+    this.updateCircleStyle = function (style){
+        this.style = style ;
+    };
+
     this.startDrawing = function (){
         this.currentTime = 0 ;
-        this.drawing = false ;
 
         // WHEN DEV CREATE INSTANCE OF THIS OBJECT
         if(this.style.withAnimation != true){
             this.oldPerc = this.perc ;
         }
-        this.draw();
+        this.draw(this.oldPerc);
         return this ;
     }
 }
