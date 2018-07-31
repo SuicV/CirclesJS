@@ -14,6 +14,61 @@ function degToRad(deg){
 }
 
 /**
+ * function to convert times in form HH:MM:SS to Seconds
+ * @param {String} string
+ * @return {number}
+ */
+function STimeToTimeStamp(string){
+    var timeStamp=0 ;
+    if(/^\d{1,3}:\d{1,2}:\d{1,2}$/.test(string)) {
+        var times = string.split(":").reverse();
+        for(var index = 0 ; index < times.length ; index++){
+            timeStamp += parseInt(times[index])*Math.pow(60,index);
+        }
+
+    }
+    return timeStamp ;
+}
+/**
+ * function to add zero's to the beginning of number
+ * @param {number} numb which you wanna add zero's
+ * @param {number} MaxLength length of number as string start from 0
+ * */
+function withZero(numb,MaxLength){
+    var res = String(numb);
+    if(!isNaN(parseInt(numb)) && MaxLength > 0){
+        for(var i = String(numb).length ; i< MaxLength ; i++){
+            res = "0"+res;
+        }
+    }
+    return res;
+}
+/**
+ * function to convert a time Stamp in Seconds to form HH:MM:SS
+ * @return {string}
+ * */
+function TimeStampToString(timeStamp){
+    var String = "";
+    if(!isNaN(parseInt(timeStamp)) && timeStamp > 0){
+        for(var i = 2 ; i>=1 ; i--){
+            if(timeStamp > Math.floor(timeStamp/(Math.pow(60,i)))){
+                var k = Math.floor(timeStamp/(Math.pow(60,i)));
+                String += withZero(window.String(k),2)+":";
+                timeStamp -= Math.floor(k*(Math.pow(60,i)));
+            }else{
+                String += "0:";
+            }
+        }
+        if(timeStamp>0){
+            String += withZero(window.String(Math.floor(timeStamp)),2);
+        }else{
+            String += "00";
+        }
+    }
+    return String ;
+}
+
+/**
  * function to get a cartesian coordination from polar coordination
  * @param {Number} circleR the rayon of the circle
  * @param {Number} angle angle of the polar coordination
