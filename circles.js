@@ -95,10 +95,14 @@ function Circle(canvasElement, circleStyle , percentage){
         // ADD LINE WIDTH TO CIRCLE
         if(this.style.hasOwnProperty("lineForce")){
             this.content.lineWidth = this.style.lineForce ;
+        }else {
+            this.content.lineWidth = 1 ;
         }
         // ADD COLOR TO CIRCLE
         if(this.style.hasOwnProperty("color")){
             this.content.strokeStyle = this.style.color;
+        }else {
+            this.content.strokeStyle = "black";
         }
     };
 
@@ -107,6 +111,9 @@ function Circle(canvasElement, circleStyle , percentage){
      * */
     this.setTextStyle = function (){
         // WRITING VALUE IF DEVELOPER SET IT
+        this.content.fillStyle = "black";
+        this.content.font = "10px arial";
+
         if(this.style.hasOwnProperty("valueStyle")){
             if(this.style.valueStyle.font !="" ){
                 this.content.font = this.style.valueStyle.font ;
@@ -126,45 +133,42 @@ function Circle(canvasElement, circleStyle , percentage){
             this.drawing = true ;
         }
 
-        if(this.oldPerc <= this.perc ){
+        this.content.beginPath();
+        this.clearCanvas();
 
-            this.content.beginPath();
-            this.clearCanvas();
+        var startAngle = 0,
+            endAngle = this.porcToRad(this.oldPerc);
 
-            var startAngle = 0,
-                endAngle = this.porcToRad(this.oldPerc);
+        // ADD STYLE CONFIG OF CIRCLE
 
-            // ADD STYLE CONFIG OF CIRCLE
+        this.setCircleStyle();
 
-            this.setCircleStyle();
+        // ADD START ANGLE
+        if(this.style.hasOwnProperty("startAngle")){
+            startAngle = degToRad(this.style.startAngle);
+        }
 
-            // ADD START ANGLE
-            if(this.style.hasOwnProperty("startAngle")){
-                startAngle = degToRad(this.style.startAngle);
-            }
+        // DRAW CIRCLE
+        this.content.arc(this.dims.w/2 , this.dims.h/2 ,
+            this.getRayon(),startAngle,startAngle + endAngle);
 
-            // DRAW CIRCLE
-            this.content.arc(this.dims.w/2 , this.dims.h/2 ,
-                this.getRayon(),startAngle,startAngle + endAngle);
+        this.content.stroke() ;
+        if(this.style.fillCirclRest == true){
+            this.fillCircleRest(startAngle + endAngle) ;
+        }
+        // DRAW END LINE
+        if(this.style.withEndLine == true){
+            this.drawEndLine(startAngle + endAngle);
+        }
 
-            this.content.stroke() ;
-            if(this.style.fillCirclRest == true){
-                this.fillCircleRest(startAngle + endAngle , startAngle) ;
-            }
-            // DRAW END LINE
-            if(this.style.withEndLine == true){
-                this.drawEndLine(startAngle + endAngle);
-            }
+        // write the value in middle
+        if(this.style.hasOwnProperty("withValue") && this.style.withValue == true) {
+            this.writeText();
+        }
 
-            // write the value in middle
-            if(this.style.hasOwnProperty("withValue") && this.style.withValue == true) {
-                this.writeText();
-            }
-
-            // when you set withAnimation attribute
-            if(this.style.withAnimation == true){
-                this.animate();
-            }
+        // when you set withAnimation attribute
+        if(this.style.withAnimation == true){
+            this.animate();
         }
     };
 
@@ -237,24 +241,23 @@ function Circle(canvasElement, circleStyle , percentage){
     /**
      * function to fill the rest of circle
      * @param {number} startAngle radian angle
-     * @param {number} endAngle radian angle
      * */
-    this.fillCircleRest = function (startAngle , endAngle){
+    this.fillCircleRest = function (startAngle){
 
         this.content.beginPath();
-        this.content.strokeStyle = "black";
+        this.content.strokeStyle = "gray";
         if(this.style.hasOwnProperty("fillRestStyle")){
             if(this.style.fillRestStyle.color != ""){
                 this.content.strokeStyle = this.style.fillRestStyle.color;
             }
         }
-
+        var endAngle = 2*Math.PI ;
         // ADD START ANGLE
         if(this.style.hasOwnProperty("maxAngle")){
             endAngle = degToRad(this.style.maxAngle) ;
-            if(this.style.startAngle>0){
-                endAngle += degToRad(this.style.startAngle);
-            }
+        }
+        if(this.style.startAngle>0){
+            endAngle += degToRad(this.style.startAngle);
         }
 
         this.content.arc(this.dims.w/2 , this.dims.h/2 ,
@@ -264,18 +267,13 @@ function Circle(canvasElement, circleStyle , percentage){
     };
     this.startDrawing = function (){
         this.currentTime = 0 ;
-        this.oldPerc = 0 ;
         this.drawing = false ;
 
         // WHEN DEV CREATE INSTANCE OF THIS OBJECT
-        if(this.style.hasOwnProperty("withAnimation")){
-            if(this.style.withAnimation == true){
-                this.draw();
-            }
-        }else{
+        if(this.style.withAnimation != true){
             this.oldPerc = this.perc ;
-            this.draw();
         }
+        this.draw();
         return this ;
     }
 }
