@@ -92,6 +92,7 @@ function Circle(canvasElement, circleStyle , percentage){
         h : canvasElement.offsetHeight
     };
     this.style = circleStyle ;
+    this.el = canvasElement ;
     this.content = canvasElement.getContext("2d");
     this.perc = percentage ;
     this.oldPerc = 0;
@@ -235,7 +236,7 @@ function Circle(canvasElement, circleStyle , percentage){
             this.style.animationDuration = 1000 ;
         }
 
-        if(this.currentTime <= this.style.animationDuration ){
+        if(this.currentTime <= this.style.animationDuration && this.oldPerc != this.perc){
             var value = 0 ;
             if(this.oldPerc < this.perc){
                 value = this.linearAnimation(this.oldPerc,this.perc,this.style.animationDuration , this.currentTime) ;
@@ -244,10 +245,17 @@ function Circle(canvasElement, circleStyle , percentage){
 
             }
             window.requestAnimationFrame(this.draw.bind(this,value));
-            this.currentTime += 10 ;
+            this.currentTime += this.getAnimationStep() ;
         }else {
             this.oldPerc = this.perc ;
             this.currentTime = 0;
+        }
+    };
+    this.getAnimationStep  = function(){
+        for(var i = 10 ; i > 0 ; i--){
+            if(this.style.animationDuration%i==0){
+                return i ;
+            }
         }
     };
     /**
