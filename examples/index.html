@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Cercles Examples</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1 , shrink-to-fit=no" />
 		<link rel="stylesheet" href="prism.css"/>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"/>
 	</head>
@@ -15,16 +16,19 @@
 
 	<!-- CONTAINER -->
 	<div class="container">
-		<div>
+		<div class="mt-3">
 			<!-- BASIC USAGE -->
 			<h2>basic usage</h2>
-			<p>here the library draw a circle with arc of 90% with default settings of canvas
-				,with out write the percentage in middle of the circle</p>
+			<h4>Example of percentage circle</h4>
+			<p>in this example the library draw a circle with arc of 90% with default settings of canvas
+				,with out write the value on middle of the circle</p>
 			<pre>
 <code class="language-js">
-new Circle(document.querySelector("#basic-usage"),{
-		valueType : PERC,
-		maxValue : 100
+	new Circle(document.querySelector("#basic-usage"),{
+	//set type of value which the circle will present
+	valueType : PERC,
+	//set max value
+	maxValue : 100
 	},90).startDrawing();
 </code>
 			</pre>
@@ -35,89 +39,116 @@ new Circle(document.querySelector("#basic-usage"),{
 		<h2>advanced usage</h2>
 		<div class="row">
 			<div class="col-12" >
-				<p>circle with animation and customize the written value </p>
+				<h4>Example of percentage circle with animation </h4>
+				<p>in this example the library will draw a percentage circle , with styling the circle . and animate drawing from 0 to the percentage , default animation duration is 1s</p>
+				<p>default colors of the circle :
+				<ul>
+					<li>filled arc : black</li>
+					<li>unfilled arc : gray</li>
+				</ul>
 				<pre style="height: 300px;">
 <code class="language-js">
-new Circle(document.querySelector(".addv1"),
+	new Circle(document.querySelector(".addv1"),
 	{
-		//border width of the circle
-		lineForce : 10 ,
-		//color of the circle
-		color : "gold",
-		//to write percentage in middle
-		withValue : true,
-		//to animate filling circle
-		withAnimation : true ,
-		//styling percentage
-		valueStyle : {
-			// set font style
-			font:"20px Arial",
-			// set color
-			color : "red"
-		},
-		// set angle of start drawing the circle
-		startAngle : 46,
-		// type of value that you wanna the circle present
-		valueType : PERC,
-		// max value
-		maxValue : 100,
-		// animation duration
-		animationDuration : 5000
+	//border width of the circle
+	lineForce : 10 ,
+	//color of the circle
+	color : "gold",
+	//to write percentage in middle
+	withValue : true,
+	//to animate filling circle
+	withAnimation : true ,
+	//styling percentage
+	valueStyle : {
+	// set font style
+	font:"20px Arial",
+	// set color
+	color : "red"
+	},
+	// set angle of start drawing the circle
+	startAngle : 46,
+	// type of value that you wanna the circle present
+	valueType : PERC,
+	// max value
+	maxValue : 100,
+	// animation duration
+	animationDuration : 5000
 	},90).startDrawing();
-</code>
-				</pre>
+</code></pre>
 				<canvas class="addv1" width="150" height="150"></canvas>
 			</div>
 
 			<div class="col-12" >
+				<h4>Example of number circle</h4>
 				<p>circle with filling the rest, customizing value and start drawing when the canvas visible on the page for the first time </p>
-				<span class="alert alert-info">by default the animation Duration is 1s </span>
-				<pre style="height: 300px; margin-top: 20px;">
+				<pre style="height: 300px;">
 <code class="language-js">
-	var circle = new Circle(document.querySelector(".addv2"),
+	var numberCircle = new Circle(document.querySelector(".addv2"),
 	{
-		//border width of the circle
-		lineForce :10 ,
-		//color of the circle
-		color : "#0093b3",
-	    //to write the value in middle
-		withValue : true,
-		//to draw with animation
-		withAnimation : true ,
-		//angle of start drawing
-		startAngle : 150,
-		//styling value
-		valueStyle : {
-			// color of value
-			color : "#0093b3",
-			// font of the value
-			font:"30px Arial"
-		},
-		//max angle of the circle
-		maxAngle : (240) ,
-		//to fill the rest of circle
-		fillCirclRest: true,
-		//styling the rest of circle
-		fillRestStyle : {
-			//set color
-			color :"#86e1ff"
-		},
+	//set circumference circle width
+	lineForce :10 ,
+	// circle color
+	color : "#0093b3",
+	//to write the value in middle of the circle
+	withValue : true,
+	//to animate drawing circle
+	withAnimation : true ,
+	//to start filling the circle from 150 degree
+	startAngle : 150,
+	//Style of the written value in the middle
+	valueStyle : {
+	//to set a color (default black)
+	color : "#0093b3",
+	//to set a font default 10px arial
+	font:"30px Arial"
+	},
+	//to set max angle of the circle to fill
+	maxAngle : (240) ,
+	//to fill the unfilled part of the circle
+	fillCirclRest: true,
+	//to styling this part
+	fillRestStyle : {
+	color :"#86e1ff"
+	},
+	// type of value which the circle present
+	valueType : NUMB,
+	// max value
+	maxValue : 10000
+	},6565);
 
-		valueType : NUMB,
-		maxValue : 10000
-	},9000);
-// START DRAWING WHEN IT'S VISIBLE IN PAGE
-document.addEventListener("scroll", function(){
+	// START DRAWING WHEN IT'S VISIBLE IN PAGE
+	document.addEventListener("scroll", function(){
 	if(window.scrollY >= window.scrollMaxY - 50 ){
-		if(!circle.drawing ){
-
-			circle.startDrawing();
-		}
+	if(!numberCircle.drawing ){
+	numberCircle.startDrawing();
 	}
-});
+	}
+	});
 </code>
 				</pre>
 				<canvas class="addv2" width="150" height="150"></canvas>
+			</div>
+			<div class="col-12">
+				<h4>Example of time circle</h4>
+				<p style="text-align :justify;">in this example we will use circles library to draw a time circle . so to do that you need to set type of value which you wanna circle present
+					using attribute <span class="badge badge-dark">valueType : TIME</span> , <span class="badge badge-dark">maxValue</span> take timeStamp in seconds you can pass an int or call STimeToTimeStam
+					function take as argument string time on form hours:minutes:second
+				</p>
+				<pre>
+<code class="language-js">
+	new Circle(document.querySelector(".addv3"),
+	{
+	valueType:TIME,
+	maxValue : STimeToTimeStamp("00:05:10"),
+	lineForce : 10,
+	withValue:true,
+	withAnimation : true,
+	animationDuration : STimeToTimeStamp("00:01:05")*1000
+	}
+	, STimeToTimeStamp("00:01:05"));
+</code>
+				</pre>
+				<canvas class="addv3" width="150" height="150"></canvas>
 			</div>
 		</div>
 	</div>

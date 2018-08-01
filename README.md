@@ -20,14 +20,18 @@ you have to initialize new Circle object and set arguments
 2. second argument is a **Object** contain the circle attributes
 3. third argument is the percentage to fill
 
+**Note** when you wanna draw a time circle you have to set a time stamp in seconds or convert a time in form "HH:MM:SS" to a time stamp using STimeToTimeStamp function
+take as parameter : string present time in the form above
+
 #### Available attributes for the second argument
 **Attributes of the circle**
 > valueType
 
 used to determinate type of the value that will the circle draw this argument **obligated**,
 you can use the following const
-* NUMB : to draw a number
-* PERC : to draw a percentage
+* NUMB : to draw a number circle
+* PERC : to draw a percentage circle
+* TIME : to draw a time circle
 
 > maxValue
 
@@ -40,6 +44,7 @@ this attribute used to set the beginning angle of drawing in degree **(type int)
 >maxAngle
 
 used to specify the max angle of the circle in degree **(type int)**
+**note** you can use STimeToTimeStamp function to set Time form
 
 > lineForce
 
@@ -47,7 +52,8 @@ used to set a width of circle line **(type int)**
 
 > color
 
-the color of circle **(type String)**
+the color of circle **(type String)** Default color *black*
+
 > withAnimation
 
 used to tell the object to animate drawing the circle from 0% to the given percentage **(type bool)**
@@ -69,7 +75,7 @@ used to tell the object to fill unfilled range on the circle **(type bool)**
 this attribute is to set the style of filling the rest of circle **(type object)**
 contain the following attributes
 
-**1. color :** to set the color by default the color is black set this attribute to change it
+**1. color :** by default the color is gray set this attribute to change it
 
 **Attributes of written value in middle**
 
@@ -82,13 +88,12 @@ used to write a value in middle to do that set this attribute as true
 this attribute is an object can have the following attribute
 
 **1. font :**
-used to set the font style of the value , you have to set the font size and the font family
-**(type string)**
+used to set the font style of the value , you have to set the font size and the font family **(type string)**
 
 **2. color :**
 used to set the font color of the value **(type string)**
 
-**Important Note** : to start drawing you have to call startDrawing Method we add this method to start drawing with the scroll
+**Important Note** : to start drawing you have to call startDrawing Method we add this method to give choice to draw circle in any time
 
 Examples
 --------
