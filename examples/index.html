@@ -25,10 +25,10 @@
 			<pre>
 <code class="language-js">
 	new Circle(document.querySelector("#basic-usage"),{
-	//set type of value which the circle will present
-	valueType : PERC,
-	//set max value
-	maxValue : 100
+		//set type of value which the circle will present
+		valueType : PERC,
+		//set max value
+		maxValue : 100
 	},90).startDrawing();
 </code>
 			</pre>
@@ -50,29 +50,29 @@
 <code class="language-js">
 	new Circle(document.querySelector(".addv1"),
 	{
-	//border width of the circle
-	lineForce : 10 ,
-	//color of the circle
-	color : "gold",
-	//to write percentage in middle
-	withValue : true,
-	//to animate filling circle
-	withAnimation : true ,
-	//styling percentage
-	valueStyle : {
-	// set font style
-	font:"20px Arial",
-	// set color
-	color : "red"
-	},
-	// set angle of start drawing the circle
-	startAngle : 46,
-	// type of value that you wanna the circle present
-	valueType : PERC,
-	// max value
-	maxValue : 100,
-	// animation duration
-	animationDuration : 5000
+		//border width of the circle
+		lineForce : 10 ,
+		//color of the circle
+		color : "gold",
+		//to write percentage in middle
+		withValue : true,
+		//to animate filling circle
+		withAnimation : true ,
+		//styling percentage
+		valueStyle : {
+			// set font style
+			font:"20px Arial",
+			// set color
+			color : "red"
+		},
+		// set angle of start drawing the circle
+		startAngle : 46,
+		// type of value that you wanna the circle present
+		valueType : PERC,
+		// max value
+		maxValue : 100,
+		// animation duration
+		animationDuration : 5000
 	},90).startDrawing();
 </code></pre>
 				<canvas class="addv1" width="150" height="150"></canvas>
@@ -85,45 +85,45 @@
 <code class="language-js">
 	var numberCircle = new Circle(document.querySelector(".addv2"),
 	{
-	//set circumference circle width
-	lineForce :10 ,
-	// circle color
-	color : "#0093b3",
-	//to write the value in middle of the circle
-	withValue : true,
-	//to animate drawing circle
-	withAnimation : true ,
-	//to start filling the circle from 150 degree
-	startAngle : 150,
-	//Style of the written value in the middle
-	valueStyle : {
-	//to set a color (default black)
-	color : "#0093b3",
-	//to set a font default 10px arial
-	font:"30px Arial"
-	},
-	//to set max angle of the circle to fill
-	maxAngle : (240) ,
-	//to fill the unfilled part of the circle
-	fillCirclRest: true,
-	//to styling this part
-	fillRestStyle : {
-	color :"#86e1ff"
-	},
-	// type of value which the circle present
-	valueType : NUMB,
-	// max value
-	maxValue : 10000
+		//set circumference circle width
+		lineForce :10 ,
+		// circle color
+		color : "#0093b3",
+		//to write the value in middle of the circle
+		withValue : true,
+		//to animate drawing circle
+		withAnimation : true ,
+		//to start filling the circle from 150 degree
+		startAngle : 150,
+		//Style of the written value in the middle
+		valueStyle : {
+			//to set a color (default black)
+			color : "#0093b3",
+			//to set a font default 10px arial
+			font:"30px Arial"
+		},
+		//to set max angle of the circle to fill
+		maxAngle : (240) ,
+		//to fill the unfilled part of the circle
+		fillCirclRest: true,
+		//to styling this part
+		fillRestStyle : {
+			color :"#86e1ff"
+		},
+		// type of value which the circle present
+		valueType : NUMB,
+		// max value
+		maxValue : 10000
 	},6565);
 
 	// START DRAWING WHEN IT'S VISIBLE IN PAGE
 	document.addEventListener("scroll", function(){
 	if(window.scrollY >= window.scrollMaxY - 50 ){
-	if(!numberCircle.drawing ){
-	numberCircle.startDrawing();
+		if(!numberCircle.drawing ){
+			numberCircle.startDrawing();
+		}
 	}
-	}
-	});
+});
 </code>
 				</pre>
 				<canvas class="addv2" width="150" height="150"></canvas>
@@ -138,17 +138,46 @@
 <code class="language-js">
 	new Circle(document.querySelector(".addv3"),
 	{
-	valueType:TIME,
-	maxValue : STimeToTimeStamp("00:05:10"),
-	lineForce : 10,
-	withValue:true,
-	withAnimation : true,
-	animationDuration : STimeToTimeStamp("00:01:05")*1000
+		valueType:TIME,
+		maxValue : STimeToTimeStamp("00:05:10"),
+		lineForce : 10,
+		withValue:true,
+		withAnimation : true,
+		animationDuration : STimeToTimeStamp("00:01:05")*1000
 	}
 	, STimeToTimeStamp("00:01:05"));
 </code>
 				</pre>
 				<canvas class="addv3" width="150" height="150"></canvas>
+			</div>
+			<div class="col-12">
+				<h4>Example of percentage circle with end line feature</h4>
+				<p style="text-align: justify">
+					in this example we will draw a percentage circle with end line .
+					you have to set <span class="badge badge-dark">withEndLine</span> attribute a true ,
+					you can styling this line with <span class="badge badge-dark">lineEndStyle</span> ,
+					which take an object contain color and lineForce attributes
+				</p>
+				<pre>
+<code class="language-js">
+	new Circle(document.querySelector(".addv4"),
+		{
+			valueType: PERC,
+			lineForce : 20,
+			maxValue : 100,
+			// to draw the separator between filled arc and unfilled arc
+			withEndLine : true,
+			// to styling separator
+			lineEndStyle :{
+				color:"red",
+				lineForce : 5
+			},
+			withValue:true
+		},40).startDrawing();
+
+</code>
+				</pre>
+				<canvas class="addv4" height="150" width="150"></canvas>
 			</div>
 		</div>
 	</div>

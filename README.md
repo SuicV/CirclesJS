@@ -66,6 +66,13 @@ this attribute used to set a time in ms to fill the circle **(type int)** by def
 
 used to draw line from centre to end point of the filled circle **(type bool)**
 
+>lineEndStyle
+
+this attribute is an object , used to styling the line end take as attribute :
+
+* **1- color** : to change default color (white)
+* **2- lineForce** : to change default line width (1px)
+
 > fillCirclRest
 
 used to tell the object to fill unfilled range on the circle **(type bool)**

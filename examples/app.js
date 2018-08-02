@@ -66,4 +66,15 @@ document.addEventListener("scroll", function(){
         }
     }
 });
-
+var k = new Circle(document.querySelector(".addv4"),
+    {
+        valueType: PERC,
+        lineForce : 20,
+        maxValue : 100,
+        withEndLine : true,
+        lineEndStyle :{
+            color:"red",
+            lineForce : 5
+        },
+        withValue : true
+    },40).startDrawing();
