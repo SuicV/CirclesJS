@@ -68,15 +68,15 @@ function TimeStampToString(timeStamp){
 
 /**
  * function to get a cartesian coordination from polar coordination
+ * @param {object} middleCord cord of center of the circle
  * @param {Number} circleR the rayon of the circle
  * @param {Number} angle angle of the polar coordination
+ *
  * */
-function getCordFromAngle(circleR, angle){
+function getCordFromAngle(middleCord , circleR, angle){
     var pointCord = {};
-    var x = circleR + circleR*Math.cos(angle);
-    var y = circleR + circleR*Math.sin(angle);
-    pointCord["x"] =Math.round( x );
-    pointCord["y"] =Math.round( y );
+    pointCord["x"] =Math.floor( middleCord.x + circleR*Math.cos(angle) );
+    pointCord["y"] =Math.floor( middleCord.y + circleR*Math.sin(angle) );
     return pointCord ;
 }
 
@@ -100,11 +100,11 @@ function Circle(canvasElement, circleStyle , percentage){
     this.drawing = false ;
 
     this.getRayon = function (){
-        var center = this.dims.w/2;
+        var radius = this.dims.w/2;
         if(this.style.hasOwnProperty("lineForce") && this.style.lineForce > 1 ){
-            return center- this.style.lineForce ;
+            return radius- this.style.lineForce/2 ;
         }
-        return center ;
+        return radius ;
     };
 
     /**
@@ -148,13 +148,13 @@ function Circle(canvasElement, circleStyle , percentage){
      * */
     this.setCircleStyle = function(){
         // ADD LINE WIDTH TO CIRCLE
-        if(this.style.hasOwnProperty("lineForce")){
+        if(this.style.lineForce > 1){
             this.content.lineWidth = this.style.lineForce ;
         }else {
             this.content.lineWidth = 1 ;
         }
         // ADD COLOR TO CIRCLE
-        if(this.style.hasOwnProperty("color")){
+        if(typeof this.style.color == "string" && this.style.color !="" ){
             this.content.strokeStyle = this.style.color;
         }else {
             this.content.strokeStyle = "black";
@@ -217,7 +217,7 @@ function Circle(canvasElement, circleStyle , percentage){
         }
 
         // write the value in middle
-        if(this.style.hasOwnProperty("withValue") && this.style.withValue == true) {
+        if(this.style.withValue == true) {
             this.writeText(value);
         }
 
@@ -253,11 +253,12 @@ function Circle(canvasElement, circleStyle , percentage){
     };
     this.getAnimationStep  = function(){
         for(var i = 10 ; i > 0 ; i--){
-            if(this.style.animationDuration%i==0){
+            if(this.style.animationDuration %i == 0){
                 return i ;
             }
         }
     };
+
     /**
      * function to get value to draw in relation with time
      * @param {number} from animation start from
@@ -300,13 +301,30 @@ function Circle(canvasElement, circleStyle , percentage){
      * @param {Number} angle radian angle
      * */
     this.drawEndLine = function(angle){
+        var cordMiddle = {x:this.dims.w/2,y:this.dims.w/2},offset = 0;
+        this.content.strokeStyle = "white";
+        this.content.lineWidth = 1 ;
 
-        var endPoint = getCordFromAngle(this.dims.w/2,angle);
+        //start styling line end
+        if(this.style.hasOwnProperty("lineEndStyle")){
+            if(this.style.lineEndStyle.lineForce >1){
+                this.content.lineWidth = this.style.lineEndStyle.lineForce ;
+            }
+            if(typeof this.style.lineEndStyle.color == "string" && this.style.lineEndStyle.color != ""){
+                this.content.strokeStyle = this.style.lineEndStyle.color ;
+            }
+        }//end styling of line end
 
-        this.content.lineWidth = 4 ;
+        if(this.style.lineForce > 0){
+            offset += this.style.lineForce ;
+        }
+
+        var endPoint = getCordFromAngle(cordMiddle,this.dims.w/2,angle),
+            startPoint = getCordFromAngle(cordMiddle,this.dims.w/2-offset,angle);
+
         this.content.beginPath();
         this.content.moveTo(endPoint.x , endPoint.y );
-        this.content.lineTo(this.dims.w/2, this.dims.h/2);
+        this.content.lineTo(startPoint.x, startPoint.y);
         this.content.stroke();
 
     };
@@ -339,9 +357,18 @@ function Circle(canvasElement, circleStyle , percentage){
         this.content.stroke();
     };
 
+    /**
+     * function to change value of circle
+     * @param {number} value
+     * */
     this.setValue = function (value){
         this.perc = value ;
     };
+
+    /**
+     * function to change the circle style
+     * @param {object} style
+     * */
     this.updateCircleStyle = function (style){
         this.style = style ;
     };
