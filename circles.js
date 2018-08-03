@@ -127,7 +127,7 @@ function Circle(canvasElement, circleStyle , percentage){
      * */
     this.getTextMiddle = function (text){
         var textWdth = this.content.measureText(text).width;
-        var Size = 16; // DEFAULT FONT SIZE 16 PX
+        var Size = 10; // DEFAULT FONT SIZE 16 PX
 
         if(this.style.hasOwnProperty("valueStyle")){
             if(this.style.valueStyle.font != ""){
@@ -193,18 +193,23 @@ function Circle(canvasElement, circleStyle , percentage){
 
         var startAngle = 0,
             endAngle = this.porcToRad(value);
-
-        // ADD STYLE CONFIG OF CIRCLE
-
-        this.setCircleStyle();
-
+        var middleCord = {x:this.dims.w/2,y:this.dims.h/2};
         // ADD START ANGLE
         if(this.style.hasOwnProperty("startAngle")){
             startAngle = degToRad(this.style.startAngle);
         }
 
+        if(this.style.maxAngle <= 180){
+            middleCord.y = this.dims.h ;
+            this.halfCircle = true ;
+        }else {
+            this.halfCircle = false ;
+        }
+
+        // ADD STYLE CONFIG OF CIRCLE
+        this.setCircleStyle();
         // DRAW CIRCLE
-        this.content.arc(this.dims.w/2 , this.dims.h/2 ,
+        this.content.arc(middleCord.x , middleCord.y ,
             this.getRayon(),startAngle,startAngle + endAngle);
 
         this.content.stroke() ;
@@ -291,9 +296,15 @@ function Circle(canvasElement, circleStyle , percentage){
             text = TimeStampToString(value);
         }
         var textMiddle = this.getTextMiddle(String(text));
-
-        this.content.fillText(text,this.dims.w/2 - textMiddle.x
-            , this.dims.h/2 + textMiddle.y/2);
+        if(this.halfCircle){
+            // to write text in bottom of the canvas
+            this.content.fillText(text,this.dims.w/2 - textMiddle.x
+                , this.dims.h - textMiddle.y/2);
+        }else{
+            // to write text in middle of the canvas
+            this.content.fillText(text,this.dims.w/2 - textMiddle.x
+                , this.dims.h/2 + textMiddle.y/2);
+        }
     };
 
     /**
