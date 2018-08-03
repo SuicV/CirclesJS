@@ -76,5 +76,11 @@ var k = new Circle(document.querySelector(".addv4"),
             color:"red",
             lineForce : 5
         },
-        withValue : true
+        withValue : true,
+        startAngle : 180,
+        halfCircle:true,
+        valueStyle:{
+            font : "25px arial"
+        },
+        maxAngle:180
     },40).startDrawing();

@@ -156,9 +156,14 @@
 					in this example we will draw a percentage circle with end line .
 					you have to set <span class="badge badge-dark">withEndLine</span> attribute a true ,
 					you can styling this line with <span class="badge badge-dark">lineEndStyle</span> ,
-					which take an object contain color and lineForce attributes
+					which take an object contain color and lineForce attributes .
+
 				</p>
-				<pre>
+				<p>
+					<span class="badge badge-danger">note :</span> this example we draw a half circle with to do that you have to set maxAngle less than 180 degree and height of
+					canvas equal half of width
+				</p>
+				<pre style="height: 250px;">
 <code class="language-js">
 	new Circle(document.querySelector(".addv4"),
 		{
@@ -172,12 +177,17 @@
 				color:"red",
 				lineForce : 5
 			},
-			withValue:true
+			withValue:true,
+			valueStyle : {
+				font: "25px arial"
+			},
+			// to set the angle between start and end of the circle
+			maxAngle:180
 		},40).startDrawing();
 
 </code>
 				</pre>
-				<canvas class="addv4" height="150" width="150"></canvas>
+				<canvas class="addv4" height="75" width="150"></canvas>
 			</div>
 		</div>
 	</div>
