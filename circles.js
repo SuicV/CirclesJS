@@ -295,6 +295,17 @@ function Circle(canvasElement, circleStyle , percentage){
         }else if(this.style.valueType == TIME){
             text = TimeStampToString(value);
         }
+
+        if(this.style.hasOwnProperty("valueStyle")){
+            if(/fontAwesome/i.test(this.style.valueStyle.font)){
+                if(typeof this.style.icon == "string" && this.style.icon != ""){
+                    text = this.style.icon ;
+                }else{
+                    return undefined;
+                }
+            }
+        }
+
         var textMiddle = this.getTextMiddle(String(text));
         if(this.halfCircle){
             // to write text in bottom of the canvas
@@ -349,8 +360,11 @@ function Circle(canvasElement, circleStyle , percentage){
         this.content.beginPath();
         this.content.strokeStyle = "gray";
         if(this.style.hasOwnProperty("fillRestStyle")){
-            if(this.style.fillRestStyle.color != ""){
+            if(typeof this.style.fillRestStyle.color == "string" && this.style.fillRestStyle.color != ""){
                 this.content.strokeStyle = this.style.fillRestStyle.color;
+            }
+            if(this.style.fillRestStyle.lineForce >0){
+                this.content.lineWidth = this.style.fillRestStyle.lineForce ;
             }
         }
         var endAngle = 2*Math.PI ;
