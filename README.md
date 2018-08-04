@@ -85,6 +85,9 @@ contain the following attributes
 
 **1. color :** by default the color is gray set this attribute to change it
 
+> radius
+
+to set the radius of the circle in px **(type int)**
 **Attributes of written value in middle**
 
 >withValue
