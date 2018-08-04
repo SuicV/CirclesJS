@@ -1,4 +1,3 @@
-window.scrollTo(0,0);
 /* BASIC USAGE EXAMPLE*/
 new Circle(document.querySelector("#basic-usage"),{
     valueType : PERC,
@@ -80,7 +79,18 @@ var k = new Circle(document.querySelector(".addv4"),
         startAngle : 180,
         halfCircle:true,
         valueStyle:{
-            font : "25px arial"
+            font : "30px arial"
         },
         maxAngle:180
     },40).startDrawing();
+new Circle(document.querySelector(".addv5"),{
+    valueType : NUMB ,
+    lineForce : 10 ,
+    valueStyle :{
+        font : "50px fontAwesome",
+        color : "red"
+    },
+    withValue: true,
+    maxValue : 100,
+    icon : "\uf242"
+},80).startDrawing();

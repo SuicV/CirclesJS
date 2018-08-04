@@ -12,6 +12,7 @@ features
 * styling circle and written percentage on middle
 * animate filling circle and written percentage
 * compatible with mobiles
+* use font awesome
 
 how to use it
 -------------
@@ -95,10 +96,14 @@ used to write a value in middle to do that set this attribute as true
 this attribute is an object can have the following attribute
 
 **1. font :**
-used to set the font style of the value , you have to set the font size and the font family **(type string)**
+used to set the font style of the value , you have to set the font size and the font family **(type string)** you can now use fontAwesome
 
 **2. color :**
 used to set the font color of the value **(type string)**
+
+> icon
+
+this attribute used to set the unicode character of font awesome to draw it as value in middle of circle
 
 **Important Note** : to start drawing you have to call startDrawing Method we add this method to give choice to draw circle in any time
 
