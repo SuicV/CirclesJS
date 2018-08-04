@@ -101,6 +101,9 @@ function Circle(canvasElement, circleStyle , percentage){
 
     this.getRayon = function (){
         var radius = this.dims.w/2;
+        if(typeof this.style.radius == "number" && this.style.radius >1){
+            radius = this.style.radius ;
+        }
         if(this.style.hasOwnProperty("lineForce") && this.style.lineForce > 1 ){
             return radius- this.style.lineForce/2 ;
         }
@@ -194,6 +197,7 @@ function Circle(canvasElement, circleStyle , percentage){
         var startAngle = 0,
             endAngle = this.porcToRad(value);
         var middleCord = {x:this.dims.w/2,y:this.dims.h/2};
+
         // ADD START ANGLE
         if(this.style.hasOwnProperty("startAngle")){
             startAngle = degToRad(this.style.startAngle);
