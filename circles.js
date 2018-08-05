@@ -341,12 +341,12 @@ function Circle(canvasElement, circleStyle , percentage){
             }
         }//end styling of line end
 
-        if(this.style.lineForce > 0){
-            offset += this.style.lineForce ;
+        if(typeof this.style.lineForce == "number" && this.style.lineForce > 1){
+            offset += this.style.lineForce/2 ;
         }
 
-        var endPoint = getCordFromAngle(cordMiddle,this.dims.w/2,angle),
-            startPoint = getCordFromAngle(cordMiddle,this.dims.w/2-offset,angle);
+        var endPoint = getCordFromAngle(cordMiddle,this.getRayon()+offset,angle),
+            startPoint = getCordFromAngle(cordMiddle,this.getRayon()-offset,angle);
 
         this.content.beginPath();
         this.content.moveTo(endPoint.x , endPoint.y );

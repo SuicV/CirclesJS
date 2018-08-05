@@ -92,5 +92,11 @@ new Circle(document.querySelector(".addv5"),{
     },
     withValue: true,
     maxValue : 100,
-    icon : "\uf242"
+    icon : "\uf242",
+    withEndLine : true,
+    radius : 55,
+    lineEndStyle : {
+        color:"green",
+        lineForce : 5
+    }
 },80).startDrawing();
