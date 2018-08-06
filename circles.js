@@ -181,7 +181,12 @@ function Circle(canvasElement, circleStyle , percentage){
             }
         }
     };
-
+    this.resetCanvasParam = function(){
+        this.content.font = "10px arial";
+        this.content.fillStyle = "black";
+        this.content.strokeStyle = "black";
+        this.content.lineWidth = 1 ;
+    };
     /**
      * function to draw the all content of canvas
      * */
@@ -193,7 +198,7 @@ function Circle(canvasElement, circleStyle , percentage){
 
         this.content.beginPath();
         this.clearCanvas();
-
+        this.resetCanvasParam();
         var startAngle = 0,
             endAngle = this.porcToRad(value);
         var middleCord = {x:this.dims.w/2,y:this.dims.h/2};
@@ -327,9 +332,9 @@ function Circle(canvasElement, circleStyle , percentage){
      * @param {Number} angle radian angle
      * */
     this.drawEndLine = function(angle){
+        this.resetCanvasParam() ;
         var cordMiddle = {x:this.dims.w/2,y:this.dims.w/2},offset = 0;
         this.content.strokeStyle = "white";
-        this.content.lineWidth = 1 ;
 
         //start styling line end
         if(this.style.hasOwnProperty("lineEndStyle")){
@@ -362,6 +367,7 @@ function Circle(canvasElement, circleStyle , percentage){
     this.fillCircleRest = function (startAngle){
 
         this.content.beginPath();
+        this.resetCanvasParam();
         this.content.strokeStyle = "gray";
         if(this.style.hasOwnProperty("fillRestStyle")){
             if(typeof this.style.fillRestStyle.color == "string" && this.style.fillRestStyle.color != ""){
