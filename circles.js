@@ -1,4 +1,4 @@
-const PERC = "percentage",NUMB= "number", TIME ="time", rightTop = "rightTop", leftTop = "leftTop" ;
+const PERC = "percentage",NUMB= "number", TIME ="time", rightTop = "rightTop", leftTop = "leftTop";
 /*
 * requestAnimationFrame polyfille
 * */
@@ -209,7 +209,7 @@ function Circle(canvasElement, circleStyle , percentage){
                 }
             }
             // set color
-            if(typeof this.style.cornerValueStyle.color == "string" && this.style.cornerValueStyle.color != ""){
+            if(typeof this.style.cornerValueStyle.color == "string" && this.style.cornerValueStyle.color){
                 this.content.fillStyle = this.style.cornerValueStyle.color ;
             }
         }
