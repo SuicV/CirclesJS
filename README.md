@@ -71,12 +71,12 @@ used to draw line from centre to end point of the filled circle **(type bool)**
 
 this attribute is an object , used to styling the line end take as attribute :
 
-* **1- color** : to change default color (white)
-* **2- lineForce** : to change default line width (1px)
+* **1- color** : to change default color (white) **(type string)**
+* **2- lineForce** : to change default line width (1px) **(type number)**
 
 > fillCirclRest
 
-used to tell the object to fill unfilled range on the circle **(type bool)**
+used to tell the object to fill unfilled part on the circle **(type bool)**
 
 > fillRestStyle
 
@@ -85,9 +85,12 @@ contain the following attributes
 
 **1. color :** by default the color is gray set this attribute to change it
 
+**2. lineForce :** this attribute used for setting the line width of the unfilled part of the circle by default is 1 px **(type number)**
+
 > radius
 
 to set the radius of the circle in px **(type int)**
+
 **Attributes of written value in middle**
 
 >withValue
@@ -107,6 +110,27 @@ used to set the font color of the value **(type string)**
 > icon
 
 this attribute used to set the unicode character of font awesome to draw it as value in middle of circle
+
+**Attributes of written value in corner**
+> cornerValue
+
+attribute used write the filled value of the circle at any top corner **(type bool)**
+
+> atCorner
+
+used to set a corner which you want to write the value in , this attribute take the following const or string
+
+* rightTop
+* leftTop
+
+**Note :** this two attributes above is obligatory to write the value at corner
+
+> cornerValueStyle
+
+this attribute used to styling the written value in corner **(type object)** take as attributes
+
+* **font**
+* **color**
 
 **Important Note** : to start drawing you have to call startDrawing Method we add this method to give choice to draw circle in any time
 
