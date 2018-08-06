@@ -1,4 +1,4 @@
-const PERC = "percentage",NUMB= "number", TIME ="time";
+const PERC = "percentage",NUMB= "number", TIME ="time", rightTop = "rightTop", leftTop = "leftTop" ;
 /*
 * requestAnimationFrame polyfille
 * */
@@ -181,11 +181,39 @@ function Circle(canvasElement, circleStyle , percentage){
             }
         }
     };
+    /**
+     * function to reset the canvas drawing params
+     * */
     this.resetCanvasParam = function(){
         this.content.font = "10px arial";
         this.content.fillStyle = "black";
         this.content.strokeStyle = "black";
         this.content.lineWidth = 1 ;
+    };
+    /**
+     * function to write the value at corner of canvas
+     * @param {string} value
+     **/
+    this.writeConrnerValue = function (value){
+        this.resetCanvasParam();
+        var cord = {x:0,y:10};
+        if(this.style.atCorner == rightTop){
+         cord.x = this.dims.w - this.content.measureText(value).width;
+        }
+        if(this.style.hasOwnProperty("cornerValueStyle")){
+            // set font style
+            if(typeof this.style.cornerValueStyle.font == "string" && this.style.cornerValueStyle.font != ""){
+                this.content.font = this.style.cornerValueStyle.font ;
+                if(!isNaN(parseInt(/\d+px/.exec(this.style.cornerValueStyle.font)[0].split(/[A-z]+/)[0]))) {
+                    cord.y = parseInt(/\d+px/.exec(this.style.cornerValueStyle.font)[0].split(/[A-z]+/)[0]) ;
+                }
+            }
+            // set color
+            if(typeof this.style.cornerValueStyle.color == "string" && this.style.cornerValueStyle.color != ""){
+                this.content.fillStyle = this.style.cornerValueStyle.color ;
+            }
+        }
+        this.content.fillText(value , cord.x,cord.y);
     };
     /**
      * function to draw the all content of canvas
@@ -234,7 +262,9 @@ function Circle(canvasElement, circleStyle , percentage){
         if(this.style.withValue == true) {
             this.writeText(value);
         }
-
+        if(this.style.cornerValue == true && /rightTop|leftTop/.test(this.style.atCorner)){
+            this.writeConrnerValue(this.getValueByType(String(value)));
+        }
         // when you set withAnimation attribute
         if(this.style.withAnimation == true){
             this.animate();
@@ -291,19 +321,26 @@ function Circle(canvasElement, circleStyle , percentage){
     this.clearCanvas = function (){
         this.content.clearRect(0,0,this.dims.w,this.dims.h);
     };
-
+    /**
+     * function return the value to write by type of the circle
+     * @param {string} value
+     * @return {string} value
+     * */
+    this.getValueByType = function(value){
+        if(this.style.valueType == PERC){
+            value += "%";
+        }else if(this.style.valueType == TIME){
+            value = TimeStampToString(parseInt(value));
+        }
+        return value
+    };
     /**
      * function to write the value in the middle of canvas
      * */
     this.writeText = function (value){
         this.setTextStyle() ;
 
-        var text= String(value) ;
-        if(this.style.valueType == PERC){
-            text += "%";
-        }else if(this.style.valueType == TIME){
-            text = TimeStampToString(value);
-        }
+        var text= this.getValueByType(String(value));
 
         if(this.style.hasOwnProperty("valueStyle")){
             if(/fontAwesome/i.test(this.style.valueStyle.font)){
