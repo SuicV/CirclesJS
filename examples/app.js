@@ -100,3 +100,31 @@ new Circle(document.querySelector(".addv5"),{
         lineForce : 5
     }
 },80).startDrawing();
+new Circle(document.querySelector(".addv6"),{
+    valueType : PERC,
+    lineForce: 5,
+    cornerValue : true,
+    atCorner : leftTop,
+    cornerValueStyle : {
+        font : "15px arial",
+        color : "green"
+    },
+    withValue:true,
+    valueStyle : {
+        font : "55px fontAwesome",
+        color: "green"
+    },
+    icon : "\uf093",
+    maxValue:100,
+    maxAngle:180,
+    startAngle : 180,
+    radius:70,
+    withAnimation : true ,
+    fillCirclRest:true,
+    fillRestStyle : {
+        lineForce :5,
+        color : "red"
+    },
+    color:"green",
+    animationDuration : 5500
+},100).startDrawing();

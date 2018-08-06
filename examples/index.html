@@ -224,6 +224,48 @@
 				</pre>
 				<canvas class="addv5" height="150" width="150"></canvas>
 			</div>
+			<div class="col-12">
+				<h4>circle with corner value :</h4>
+				<p>we will draw a circle with font awesome icon in middle to show the progression of an upload and write
+					the percentage of uploaded file in left top corner
+				</p>
+				<pre style="height: 300px;">
+<code class="language-js">
+new Circle(document.querySelector(".addv6"),{
+	valueType : PERC,
+	lineForce: 5,
+	// tell the library you wanna write the value corner
+	cornerValue : true,
+	// select the corner
+	atCorner : leftTop,
+	// styling the value to write
+	cornerValueStyle : {
+		font : "15px arial",
+		color : "green"
+	},
+	withValue:true,
+	valueStyle : {
+		font : "55px fontAwesome",
+		color: "green"
+	},
+	icon : "\uf093",
+	maxValue:100,
+	maxAngle:180,
+	startAngle : 180,
+	radius:70,
+	withAnimation : true ,
+	fillCirclRest:true,
+	fillRestStyle : {
+		lineForce :5,
+		color : "red"
+	},
+	color:"green",
+	animationDuration : 5500
+},100).startDrawing();
+</code>
+				</pre>
+				<canvas class="addv6" height="75" width="150"></canvas>
+			</div>
 		</div>
 	</div>
 		<script src="prism.js"></script>
