@@ -251,7 +251,7 @@ function Circle(canvasElement, circleStyle , percentage){
 
         this.content.stroke() ;
         if(this.style.fillCirclRest == true){
-            this.fillCircleRest(startAngle + endAngle) ;
+            this.fillCircleRest(startAngle + endAngle,middleCord) ;
         }
         // DRAW END LINE
         if(this.style.withEndLine == true){
@@ -401,7 +401,7 @@ function Circle(canvasElement, circleStyle , percentage){
      * function to fill the rest of circle
      * @param {number} startAngle radian angle
      * */
-    this.fillCircleRest = function (startAngle){
+    this.fillCircleRest = function (startAngle,middleCord){
 
         this.content.beginPath();
         this.resetCanvasParam();
@@ -423,7 +423,7 @@ function Circle(canvasElement, circleStyle , percentage){
             endAngle += degToRad(this.style.startAngle);
         }
 
-        this.content.arc(this.dims.w/2 , this.dims.h/2 ,
+        this.content.arc(middleCord.x, middleCord.y ,
             this.getRayon(),startAngle,endAngle);
 
         this.content.stroke();
