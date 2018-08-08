@@ -5,7 +5,7 @@
 		<title>Cercles Examples</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1 , shrink-to-fit=no" />
 		<link rel="stylesheet" href="prism.css"/>
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">		<link rel="stylesheet" href="../css/font-awesome.css"/>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
 		<style>
 			@font-face {
 				font-family: "fontAwesome";
@@ -265,6 +265,41 @@ new Circle(document.querySelector(".addv6"),{
 </code>
 				</pre>
 				<canvas class="addv6" height="75" width="150"></canvas>
+			</div>
+			<div class="col-12">
+				<h4>Example of circle with a border</h4>
+				<p style="text-align: justify;">in that example we'll draw a percentage circle with a border . we'll use <span class="badge badge-dark">withBorder</span>
+				attribute to draw the border , this attribute take an object contain the following attributes
+				<span class="badge badge-primary">lineForce : [number]</span> to determine width of the border , top border and the bottom border of the circe ,each of them take the half of lineForce attribute .
+				<span class="badge badge-primary">color : [string]</span> to change to default color of the border which is gray color .
+				</p>
+				<pre style="height : 200px">
+<code class="language-js">
+new Circle(document.querySelector(".addv7"),
+{
+	// styling the circle
+	lineForce : 5 ,
+	color : "blue",
+	//styling the border
+	withBorder:{
+		// width of the border
+		lineForce : 15
+	},
+	//write the value in middle of the circle
+	withValue : true,
+	valueStyle:{
+		color : "blue",
+		font : "900 15px  arial"
+	},
+	// basic config of the circle
+	valueType : PERC,
+	maxValue : 100,
+	radius : 60
+}
+,80).startDrawing();
+</code>
+				</pre>
+				<canvas class="addv7" height="150" width="150"></canvas>
 			</div>
 		</div>
 	</div>

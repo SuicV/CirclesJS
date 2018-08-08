@@ -128,3 +128,26 @@ new Circle(document.querySelector(".addv6"),{
     color:"green",
     animationDuration : 5500
 },100).startDrawing();
+
+new Circle(document.querySelector(".addv7"),
+    {
+        // styling the circle
+        lineForce : 5 ,
+        color : "blue",
+        //styling the border
+        withBorder:{
+            // width of the border
+            lineForce : 15
+        },
+        //write the value in middle of the circle
+        withValue : true,
+        valueStyle:{
+            color : "blue",
+            font : "900 15px  arial"
+        },
+        // basic config of the circle
+        valueType : PERC,
+        maxValue : 100,
+        radius : 60
+    }
+    ,80).startDrawing();
