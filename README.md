@@ -111,6 +111,14 @@ used to set the font color of the value **(type string)**
 
 this attribute used to set the unicode character of font awesome to draw it as value in middle of circle
 
+> whitBorder
+
+this attribute used to draw a border around the whole circle , that attribute take an object with the following attributes
+
+* **lineForce :** to set a width to the border which is around the circle this value **(type number)**
+
+* **color :** to set a color to the border **(type : string)** . default color is **gray**
+
 **Attributes of written value in corner**
 > cornerValue
 
