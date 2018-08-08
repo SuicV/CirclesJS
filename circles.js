@@ -216,6 +216,34 @@ function Circle(canvasElement, circleStyle , percentage){
         this.content.fillText(value , cord.x,cord.y);
     };
     /**
+     * function to draw the border of circle
+     * @param {object} middleCord
+     * @param {number} startAngle
+     * */
+    this.drawBorder = function(middleCord,startAngle){
+        this.content.beginPath();
+        var endAngle = 2*Math.PI;
+        var lineForce = 1;
+        if(this.style.lineForce > 1){
+            lineForce +=this.style.lineForce;
+        }
+        if(typeof this.style.maxAngle === "number" && this.style.maxAngle > 0){
+            endAngle = degToRad(this.style.maxAngle);
+        }
+        if(typeof this.style.withBorder.lineForce === "number" && this.style.withBorder.lineForce > 1){
+            lineForce += this.style.withBorder.lineForce ;
+        }
+        this.content.lineWidth = lineForce ;
+        if(typeof this.style.withBorder.color === "string" && this.style.withBorder.color != ""){
+            this.content.strokeStyle = this.style.withBorder.color ;
+        }else {
+            this.content.strokeStyle = "gray" ;
+
+        }
+        this.content.arc(middleCord.x,middleCord.y,this.getRayon(),startAngle,startAngle+endAngle);
+        this.content.stroke();
+    };
+    /**
      * function to draw the all content of canvas
      * */
     this.draw = function(value){
@@ -242,10 +270,16 @@ function Circle(canvasElement, circleStyle , percentage){
         }else {
             this.halfCircle = false ;
         }
+        // DRAW BORDER OF THE CIRCLE
+        if(typeof this.style.withBorder === "object" && this.style.hasOwnProperty("withBorder")){
+            this.drawBorder(middleCord,startAngle);
+        }
 
+        this.resetCanvasParam();
         // ADD STYLE CONFIG OF CIRCLE
         this.setCircleStyle();
         // DRAW CIRCLE
+        this.content.beginPath();
         this.content.arc(middleCord.x , middleCord.y ,
             this.getRayon(),startAngle,startAngle + endAngle);
 
@@ -400,6 +434,7 @@ function Circle(canvasElement, circleStyle , percentage){
     /**
      * function to fill the rest of circle
      * @param {number} startAngle radian angle
+     * @param middleCord
      * */
     this.fillCircleRest = function (startAngle,middleCord){
 
