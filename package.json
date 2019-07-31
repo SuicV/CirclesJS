@@ -1,0 +1,45 @@
+{
+  "name": "circlesjs",
+  "version": "1.6.0",
+  "description": "Circles library ===============",
+  "main": "src/CirclesJS.js",
+  "directories": {
+    "doc": "doc",
+    "src": "src",
+    "dist": "dist"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "MODE=dev webpack",
+    "bundle": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SuicV/CirclesJs.git"
+  },
+  "keywords": [
+    "pie char",
+    "statistics"
+  ],
+  "author": "SuicV",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/SuicV/CirclesJs/issues"
+  },
+  "homepage": "https://github.com/SuicV/CirclesJs#readme",
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "babel-loader": "^8.0.6",
+    "eslint": "^6.1.0",
+    "eslint-config-standard": "^13.0.1",
+    "eslint-loader": "^2.2.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "webpack": "^4.38.0",
+    "webpack-cli": "^3.3.6"
+  },
+  "dependencies": {}
+}
