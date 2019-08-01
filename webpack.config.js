@@ -10,11 +10,12 @@ let config = {
         filename : "CirclesJS.min.js",
         library : "Circles",
         libraryTarget : "umd",
-        globalObject: 'this'
+        globalObject: 'this',
+        libraryExport: "default"
     },
-    devtool : "inline-source-map",
+    devtool : mode ? "source-map" : false ,
     optimization : {
-      minimize : true
+      minimize : !mode
     },
     module: {
       rules: [
