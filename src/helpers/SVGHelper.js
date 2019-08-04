@@ -39,7 +39,7 @@ function getCirclePath (angle, config) {
     path.setAttribute('d', `M${startCoord.x},${startCoord.y}
                             a${computedRaduis},${computedRaduis} 0 0 1 ${endCoord.x - startCoord.x}, ${endCoord.y - startCoord.y}`)
   } else {
-    const half = getCordFromAngle(middleCoord, computedRaduis, degToRad(startAngle + Math.PI))
+    const half = getCordFromAngle(middleCoord, computedRaduis, degToRad(startAngle) + Math.PI)
     path.setAttribute('d', `M${startCoord.x},${startCoord.y}
                             a${computedRaduis},${computedRaduis} 0 0 1 ${half.x - startCoord.x}, ${half.y - startCoord.y}
                             a${computedRaduis},${computedRaduis} 0 ${angle < 275 ? 0 : 1} 1 ${endCoord.x - half.x}, ${endCoord.y - half.y}`)
