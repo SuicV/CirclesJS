@@ -19,12 +19,13 @@ export const PATH_SVGELEMENT = document.createElementNS('http://www.w3.org/2000/
 function setCircleAttr (svgElement, config) {
   svgElement.setAttribute('stroke-width', (typeof config.strokeWidth === 'number') ? config.strokeWidth : Defaults.STROKE_WIDTH)
   svgElement.setAttribute('stroke', (typeof config.color === 'string') ? config.color : Defaults.STROKE_COLOR)
+  svgElement.setAttribute('stroke-linecap', 'round')
   svgElement.setAttribute('fill', 'none')
 }
 
 /**
  * @function getCirclePath function return circle path to append to svg element
- * @param {int} angle the angle of circle to draw
+ * @param {int} angle the angle of circle to draw in degree
  * @param {Object} config containt circle configuration
  */
 function getCirclePath (angle, config) {
@@ -39,10 +40,10 @@ function getCirclePath (angle, config) {
     path.setAttribute('d', `M${startCoord.x},${startCoord.y}
                             a${computedRaduis},${computedRaduis} 0 0 1 ${endCoord.x - startCoord.x}, ${endCoord.y - startCoord.y}`)
   } else {
-    const half = getCordFromAngle(middleCoord, computedRaduis, degToRad(startAngle) + Math.PI)
+    const half = getCordFromAngle(middleCoord, computedRaduis, startAngle + Math.PI)
     path.setAttribute('d', `M${startCoord.x},${startCoord.y}
                             a${computedRaduis},${computedRaduis} 0 0 1 ${half.x - startCoord.x}, ${half.y - startCoord.y}
-                            a${computedRaduis},${computedRaduis} 0 ${angle < 275 ? 0 : 1} 1 ${endCoord.x - half.x}, ${endCoord.y - half.y}`)
+                            a${computedRaduis},${computedRaduis} 0 0 1 ${endCoord.x - half.x}, ${endCoord.y - half.y}`)
   }
   return path
 }
