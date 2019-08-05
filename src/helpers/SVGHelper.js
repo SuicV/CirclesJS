@@ -30,6 +30,7 @@ function setCircleAttr (svgElement, config) {
  */
 function getCirclePath (angle, config) {
   const path = PATH_SVGELEMENT.cloneNode(false)
+
   const middleCoord = { x: config.width / 2, y: config.height / 2 }
   const computedRaduis = getComputedRadius(config.strokeWidth, config.radius)
   const startAngle = typeof config.startAngle === 'number' ? degToRad(config.startAngle) : Defaults.START_ANGLE.top_middle
@@ -54,9 +55,9 @@ function getCirclePath (angle, config) {
  * @returns {SVGGElement} svg group contain the circle
  */
 export function createCircle (config = {}) {
-  // const svgGroup = GROUP_SVGELEMENT.cloneNode(false)
-  const angle = valueToAngle(config.value)
+  const angle = valueToAngle(config.value, config.maxAngle, config.maxValue)
   const path = getCirclePath(angle, config)
+
   setCircleAttr(path, config)
 
   return path
