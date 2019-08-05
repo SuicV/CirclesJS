@@ -19,7 +19,7 @@ export const PATH_SVGELEMENT = document.createElementNS('http://www.w3.org/2000/
 function setCircleAttr (svgElement, config) {
   svgElement.setAttribute('stroke-width', (typeof config.strokeWidth === 'number') ? config.strokeWidth : Defaults.STROKE_WIDTH)
   svgElement.setAttribute('stroke', (typeof config.color === 'string') ? config.color : Defaults.STROKE_COLOR)
-  svgElement.setAttribute('stroke-linecap', 'round')
+  svgElement.setAttribute('stroke-linecap', typeof config.linecap === 'string' ? config.linecap : Defaults.LINE_CAP)
   svgElement.setAttribute('fill', 'none')
 }
 
