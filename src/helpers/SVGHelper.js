@@ -6,7 +6,7 @@ import { Defaults } from './defaults'
  */
 export const GROUP_SVGELEMENT = document.createElementNS('http://www.w3.org/2000/svg', 'g')
 export const PATH_SVGELEMENT = document.createElementNS('http://www.w3.org/2000/svg', 'path')
-
+export const TEXT_SVGELEMENT = document.createElementNS('http://www.w3.org/2000/svg', 'text')
 /**
  * FUNCTIONS
  */
@@ -17,10 +17,13 @@ export const PATH_SVGELEMENT = document.createElementNS('http://www.w3.org/2000/
  * @param {Object} config contain circle configuration
  */
 function setCircleAttr (svgElement, config) {
-  svgElement.setAttribute('stroke-width', (typeof config.strokeWidth === 'number') ? config.strokeWidth : Defaults.STROKE_WIDTH)
-  svgElement.setAttribute('stroke', (typeof config.color === 'string') ? config.color : Defaults.STROKE_COLOR)
-  svgElement.setAttribute('stroke-linecap', typeof config.linecap === 'string' ? config.linecap : Defaults.LINE_CAP)
+  svgElement.setAttribute('stroke-width', config.strokeWidth)
+  svgElement.setAttribute('stroke', config.color)
+  svgElement.setAttribute('stroke-linecap', config.linecap)
   svgElement.setAttribute('fill', 'none')
+  if (typeof config.id !== 'undefined') {
+    svgElement.setAttribute('id', config.id)
+  }
 }
 
 /**
@@ -49,10 +52,41 @@ function getCirclePath (angle, config) {
   return path
 }
 
+function getTextValue (value, type) {
+  switch (type) {
+    case Defaults.PERCENTAGE_VALUE_TYPE :
+      return value + '%'
+    case Defaults.NUMBER_VALUE_TYPE :
+      return value
+  }
+}
+/**
+ * @function createText function return text elment to append in svg element
+ * @param {Object} config configuration of text
+ * @return {SVGElement}
+ */
+export function createText (config, value = 0) {
+  const textSVGElement = TEXT_SVGELEMENT.cloneNode()
+  textSVGElement.setAttribute('text-anchor', 'middle')
+  textSVGElement.setAttribute('x', config.width / 2)
+  textSVGElement.setAttribute('y', config.height / 2 + config.fontSize / 4)
+  textSVGElement.setAttribute('style', `font-family: ${config.fontFamily};font-size:${config.fontSize}px;font-weight:${config.fontWeight};fill:${config.color};`)
+  if (typeof config.id !== 'undefined') {
+    textSVGElement.setAttribute('id', config.id)
+  }
+  if (typeof config.text === 'string') {
+    textSVGElement.textContent = config.text
+  }
+  if (typeof config.valueType === 'string') {
+    textSVGElement.textContent = getTextValue(value, config.valueType)
+  }
+  return textSVGElement
+}
+
 /**
  * @function create_circle function return an SVGElement containe the circle path
  * @param {Object} config containe circle configuration
- * @returns {SVGGElement} svg group contain the circle
+ * @returns {SVGElement} svg group contain the circle
  */
 export function createCircle (config = {}) {
   const angle = valueToAngle(config.value, config.maxAngle, config.maxValue)

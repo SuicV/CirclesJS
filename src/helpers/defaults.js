@@ -16,7 +16,8 @@ export const Defaults = {
   },
   /* FONTS */
   FONTS: {
-    font_size: '1em',
-    font_family: 'Arial sans-serif'
+    font_size: 16,
+    font_family: 'Arial sans-serif',
+    font_weight: 'regular'
   }
 }
