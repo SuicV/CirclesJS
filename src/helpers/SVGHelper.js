@@ -21,8 +21,8 @@ function setCircleAttr (svgElement, config) {
   svgElement.setAttribute('stroke', config.color)
   svgElement.setAttribute('stroke-linecap', config.linecap)
   svgElement.setAttribute('fill', 'none')
-  if (typeof config.id !== 'undefined') {
-    svgElement.setAttribute('id', config.id)
+  if (typeof config.Class !== 'undefined') {
+    svgElement.setAttribute('class', config.Class)
   }
 }
 
@@ -51,7 +51,12 @@ function getCirclePath (angle, config) {
   }
   return path
 }
-
+/**
+ * @function getTextValue function return value by used type in circle
+ * @param {int} value value to write
+ * @param {string} type value type
+ * @returns {string} value to write
+ */
 function getTextValue (value, type) {
   switch (type) {
     case Defaults.PERCENTAGE_VALUE_TYPE :
@@ -71,8 +76,9 @@ export function createText (config, value = 0) {
   textSVGElement.setAttribute('x', config.width / 2)
   textSVGElement.setAttribute('y', config.height / 2 + config.fontSize / 4)
   textSVGElement.setAttribute('style', `font-family: ${config.fontFamily};font-size:${config.fontSize}px;font-weight:${config.fontWeight};fill:${config.color};`)
-  if (typeof config.id !== 'undefined') {
-    textSVGElement.setAttribute('id', config.id)
+
+  if (typeof config.Class !== 'undefined') {
+    textSVGElement.setAttribute('class', config.Class)
   }
   if (typeof config.text === 'string') {
     textSVGElement.textContent = config.text

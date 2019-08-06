@@ -38,17 +38,27 @@ export default class Circles {
     if (typeof conf.middleText.fontWeight === 'undefined') {
       this.config.middleText.fontWeight = Defaults.FONTS.font_weight
     }
+    if (typeof conf.fillRest === 'object') {
+      this.config.fillRest = { ...this.config.circle, ...this.config.fillRest }
+      typeof this.config.circle.maxValue === 'undefined' ? this.config.fillRest.value = 100 : this.config.fillRest.value = this.config.circle.maxValue
+    }
     this.el = conf.el
     const size = this.el.getBoundingClientRect()
-    this.config.circle.width = size.width
-    this.config.circle.height = size.height
+    this.config.dims = {}
+    this.config.dims.width = size.width
+    this.config.dims.height = size.height
   }
 
   draw () {
     this.config.middleText.width = this.config.circle.width
     this.config.middleText.height = this.config.circle.height
-    const svgGroup = createCircle(this.config.circle)
-    const text = createText(this.config.middleText, this.config.circle.value)
+    const svgGroup = createCircle({ ...this.config.circle, ...this.config.dims })
+    const text = createText({ ...this.config.middleText, ...this.config.dims }, this.config.circle.value)
+    if (typeof this.config.fillRest !== 'undefined') {
+      const fillRestPath = createCircle({ ...this.config.fillRest, ...this.config.dims })
+      console.log(fillRestPath)
+      this.el.appendChild(fillRestPath)
+    }
     this.el.appendChild(svgGroup)
     this.el.appendChild(text)
   }
