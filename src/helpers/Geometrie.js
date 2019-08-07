@@ -27,3 +27,14 @@ export function getCordFromAngle (middleCord, circleRadius, angle) {
 export function getComputedRadius (strokeWidth, circleRadius, margin = 0) {
   return circleRadius - margin - (strokeWidth / 2)
 }
+/**
+ * @function getMiddleCoord function to get middle of circle using svg size
+ * @param {SVGElement} el main svg element to get middle coord
+ */
+export function getMiddleCoord (el) {
+  const size = el.getBoundingClientRect()
+  return {
+    x: size.width / 2,
+    y: size.height / 2
+  }
+}
