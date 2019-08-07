@@ -34,7 +34,6 @@ export default class Circles {
 
     let fillRestPath, text
     const circlePath = createCircle({ ...this.config.circle, ...Object(this.config.dims) })
-    this.el.appendChild(circlePath)
 
     if (typeof this.config.fillRest !== 'undefined') {
       fillRestPath = createCircle({ ...this.config.fillRest, ...this.config.dims })
@@ -45,6 +44,7 @@ export default class Circles {
       this.el.appendChild(text)
     }
 
+    this.el.appendChild(circlePath)
     this.elContent = {
       circle: circlePath,
       restCircle: fillRestPath,

@@ -35,7 +35,8 @@ function getCirclePath (angle, config) {
 
   const middleCoord = { x: config.x, y: config.y }
   const computedRaduis = getComputedRadius(config.stroke_width, config.radius)
-  const startAngle = typeof config.startAngle === 'number' ? degToRad(config.startAngle) : Defaults.START_ANGLE.top_middle
+  const startAngle = typeof config.start_angle === 'number' ? Defaults.START_ANGLE.top_middle + degToRad(config.start_angle)
+    : Defaults.START_ANGLE.top_middle
   const startCoord = getCordFromAngle(middleCoord, computedRaduis, startAngle)
   const endCoord = getCordFromAngle(middleCoord, computedRaduis, startAngle + degToRad(angle))
 
