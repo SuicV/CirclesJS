@@ -4,9 +4,8 @@ import { Defaults } from './defaults'
 /**
  * CONSTANTS
  */
-export const GROUP_SVGELEMENT = document.createElementNS('http://www.w3.org/2000/svg', 'g')
-export const PATH_SVGELEMENT = document.createElementNS('http://www.w3.org/2000/svg', 'path')
-export const TEXT_SVGELEMENT = document.createElementNS('http://www.w3.org/2000/svg', 'text')
+const PATH_SVGELEMENT = document.createElementNS('http://www.w3.org/2000/svg', 'path')
+const TEXT_SVGELEMENT = document.createElementNS('http://www.w3.org/2000/svg', 'text')
 /**
  * FUNCTIONS
  */
@@ -17,12 +16,12 @@ export const TEXT_SVGELEMENT = document.createElementNS('http://www.w3.org/2000/
  * @param {Object} config contain circle configuration
  */
 function setCircleAttr (svgElement, config) {
-  svgElement.setAttribute('stroke-width', config.strokeWidth)
-  svgElement.setAttribute('stroke', config.color)
-  svgElement.setAttribute('stroke-linecap', config.linecap)
+  svgElement.setAttribute('stroke-width', config.stroke_width)
+  svgElement.setAttribute('stroke', config.stroke_color)
+  svgElement.setAttribute('stroke-linecap', config.stroke_linecap)
   svgElement.setAttribute('fill', 'none')
-  if (typeof config.Class !== 'undefined') {
-    svgElement.setAttribute('class', config.Class)
+  if (typeof config.class !== 'undefined') {
+    svgElement.setAttribute('class', config.class)
   }
 }
 
@@ -34,20 +33,21 @@ function setCircleAttr (svgElement, config) {
 function getCirclePath (angle, config) {
   const path = PATH_SVGELEMENT.cloneNode(false)
 
-  const middleCoord = { x: config.width / 2, y: config.height / 2 }
-  const computedRaduis = getComputedRadius(config.strokeWidth, config.radius)
+  const middleCoord = { x: config.x, y: config.y }
+  const computedRaduis = getComputedRadius(config.stroke_width, config.radius)
   const startAngle = typeof config.startAngle === 'number' ? degToRad(config.startAngle) : Defaults.START_ANGLE.top_middle
   const startCoord = getCordFromAngle(middleCoord, computedRaduis, startAngle)
   const endCoord = getCordFromAngle(middleCoord, computedRaduis, startAngle + degToRad(angle))
 
+  // SETTING PATH INFORMATIONS
   if (angle < 180) {
-    path.setAttribute('d', `M${startCoord.x},${startCoord.y}
-                            a${computedRaduis},${computedRaduis} 0 0 1 ${endCoord.x - startCoord.x}, ${endCoord.y - startCoord.y}`)
+    path.setAttribute('d', ['M', startCoord.x, startCoord.y,
+      'a', computedRaduis, computedRaduis, '0', '0', '1', endCoord.x - startCoord.x, endCoord.y - startCoord.y].join(' '))
   } else {
     const half = getCordFromAngle(middleCoord, computedRaduis, startAngle + Math.PI)
-    path.setAttribute('d', `M${startCoord.x},${startCoord.y}
-                            a${computedRaduis},${computedRaduis} 0 0 1 ${half.x - startCoord.x}, ${half.y - startCoord.y}
-                            a${computedRaduis},${computedRaduis} 0 0 1 ${endCoord.x - half.x}, ${endCoord.y - half.y}`)
+    path.setAttribute('d', ['M', startCoord.x, startCoord.y,
+      'a', computedRaduis, computedRaduis, '0', '0', '1', half.x - startCoord.x, half.y - startCoord.y,
+      'a', computedRaduis, computedRaduis, '0', '0', '1', endCoord.x - half.x, endCoord.y - half.y].join(' '))
   }
   return path
 }
@@ -73,18 +73,17 @@ function getTextValue (value, type) {
 export function createText (config, value = 0) {
   const textSVGElement = TEXT_SVGELEMENT.cloneNode()
   textSVGElement.setAttribute('text-anchor', 'middle')
-  textSVGElement.setAttribute('x', config.width / 2)
-  textSVGElement.setAttribute('y', config.height / 2 + config.fontSize / 4)
-  textSVGElement.setAttribute('style', `font-family: ${config.fontFamily};font-size:${config.fontSize}px;font-weight:${config.fontWeight};fill:${config.color};`)
+  textSVGElement.setAttribute('x', config.x)
+  textSVGElement.setAttribute('y', config.y + config.font_size / 4)
+  textSVGElement.setAttribute('style', `cursor:default;font-family: ${config.font_family};font-size:${config.font_size}px;font-weight:${config.font_weight};fill:${config.color};`)
 
-  if (typeof config.Class !== 'undefined') {
-    textSVGElement.setAttribute('class', config.Class)
+  if (typeof config.class !== 'undefined') {
+    textSVGElement.setAttribute('class', config.class)
   }
   if (typeof config.text === 'string') {
     textSVGElement.textContent = config.text
-  }
-  if (typeof config.valueType === 'string') {
-    textSVGElement.textContent = getTextValue(value, config.valueType)
+  } else if (typeof config.value_type === 'string') {
+    textSVGElement.textContent = getTextValue(value, config.value_type)
   }
   return textSVGElement
 }
@@ -95,7 +94,7 @@ export function createText (config, value = 0) {
  * @returns {SVGElement} svg group contain the circle
  */
 export function createCircle (config = {}) {
-  const angle = valueToAngle(config.value, config.maxAngle, config.maxValue)
+  const angle = valueToAngle(config.value, config.max_angle, config.max_value)
   const path = getCirclePath(angle, config)
 
   setCircleAttr(path, config)

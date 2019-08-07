@@ -7,17 +7,21 @@ export const Defaults = {
   /* CIRCLE STYLE */
   STROKE_COLOR: 'black',
   STROKE_WIDTH: 1,
-  LINE_CAP: 'round',
+  STROKE_LINECAP: 'round',
   START_ANGLE: {
-    top_middle: (3 / 2) * Math.PI,
-    left_middle: Math.PI,
-    bottom_middle: Math.PI / 2,
-    right_middle: 0
+    top_middle: (3 / 2) * Math.PI
   },
   /* FONTS */
-  FONTS: {
-    font_size: 16,
-    font_family: 'Arial sans-serif',
-    font_weight: 'regular'
-  }
+  FONT_SIZE: 16,
+  FONT_WEIGHT: 'regular',
+  COLOR: 'black'
+}
+
+export function setDefaultCofnig (keys, config = {}) {
+  keys.forEach(element => {
+    if (typeof config[element] === 'undefined') {
+      config[element] = Defaults[element.toUpperCase()]
+    }
+  })
+  return config
 }
