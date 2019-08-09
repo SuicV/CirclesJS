@@ -18,8 +18,10 @@
     "url": "git+https://github.com/SuicV/CirclesJs.git"
   },
   "keywords": [
-    "pie char",
-    "statistics"
+    "CirclesJS",
+    "percentage circle",
+    "svg",
+    "svg circle"
   ],
   "author": "SuicV",
   "license": "GPL-3.0",
