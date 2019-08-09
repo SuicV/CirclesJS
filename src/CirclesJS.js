@@ -2,6 +2,8 @@ import { createCircle, createText } from './helpers/SVGHelper'
 import { setDefaultCofnig } from './helpers/defaults'
 import { exist } from './helpers/Validator'
 import { getMiddleCoord } from './helpers/Geometrie'
+import { fillCircleAnimation, getAnimationStep } from './helpers/Animation'
+
 export default class Circles {
   constructor (conf) {
     this.config = conf
@@ -24,7 +26,7 @@ export default class Circles {
     }
 
     this.el = conf.el
-    this.config.dims = getMiddleCoord(conf.el)
+    this.config.middle = getMiddleCoord(conf.el)
 
     this.isDrawed = false
   }
@@ -33,14 +35,14 @@ export default class Circles {
     this.isDrawed = true
 
     let fillRestPath, text
-    const circlePath = createCircle({ ...this.config.circle, ...Object(this.config.dims) })
+    const circlePath = createCircle({ ...this.config.circle, ...this.config.middle })
 
     if (typeof this.config.fillRest !== 'undefined') {
-      fillRestPath = createCircle({ ...this.config.fillRest, ...this.config.dims })
+      fillRestPath = createCircle({ ...this.config.fillRest, ...this.config.middle })
       this.el.appendChild(fillRestPath)
     }
     if (typeof this.config.middleText !== 'undefined') {
-      text = createText({ ...this.config.middleText, ...this.config.dims }, this.config.circle.value)
+      text = createText({ ...this.config.middleText, ...this.config.middle }, this.config.circle.value)
       this.el.appendChild(text)
     }
 
@@ -50,5 +52,13 @@ export default class Circles {
       restCircle: fillRestPath,
       middleText: text
     }
+  }
+
+  animate (duration = 500) {
+    const step = getAnimationStep(duration)
+    const to = this.config.circle.value
+    this.config.circle.value = 0
+    this.draw()
+    window.requestAnimationFrame(fillCircleAnimation.bind(this, duration, this.config.circle.value, to, 0, step))
   }
 }

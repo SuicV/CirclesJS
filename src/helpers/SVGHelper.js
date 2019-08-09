@@ -30,9 +30,7 @@ function setCircleAttr (svgElement, config) {
  * @param {int} angle the angle of circle to draw in degree
  * @param {Object} config containt circle configuration
  */
-function getCirclePath (angle, config) {
-  const path = PATH_SVGELEMENT.cloneNode(false)
-
+export function getCirclePath (angle, config) {
   const middleCoord = { x: config.x, y: config.y }
   const computedRaduis = getComputedRadius(config.stroke_width, config.radius)
   const startAngle = typeof config.start_angle === 'number' ? Defaults.START_ANGLE.top_middle + degToRad(config.start_angle)
@@ -42,15 +40,14 @@ function getCirclePath (angle, config) {
 
   // SETTING PATH INFORMATIONS
   if (angle < 180) {
-    path.setAttribute('d', ['M', startCoord.x, startCoord.y,
-      'a', computedRaduis, computedRaduis, '0', '0', '1', endCoord.x - startCoord.x, endCoord.y - startCoord.y].join(' '))
+    return ['M', startCoord.x, startCoord.y,
+      'a', computedRaduis, computedRaduis, '0', '0', '1', endCoord.x - startCoord.x, endCoord.y - startCoord.y].join(' ')
   } else {
     const half = getCordFromAngle(middleCoord, computedRaduis, startAngle + Math.PI)
-    path.setAttribute('d', ['M', startCoord.x, startCoord.y,
+    return ['M', startCoord.x, startCoord.y,
       'a', computedRaduis, computedRaduis, '0', '0', '1', half.x - startCoord.x, half.y - startCoord.y,
-      'a', computedRaduis, computedRaduis, '0', '0', '1', endCoord.x - half.x, endCoord.y - half.y].join(' '))
+      'a', computedRaduis, computedRaduis, '0', '0', '1', endCoord.x - half.x, endCoord.y - half.y].join(' ')
   }
-  return path
 }
 /**
  * @function getTextValue function return value by used type in circle
@@ -58,7 +55,7 @@ function getCirclePath (angle, config) {
  * @param {string} type value type
  * @returns {string} value to write
  */
-function getTextValue (value, type) {
+export function getTextValue (value, type) {
   switch (type) {
     case Defaults.PERCENTAGE_VALUE_TYPE :
       return value + '%'
@@ -96,7 +93,8 @@ export function createText (config, value = 0) {
  */
 export function createCircle (config = {}) {
   const angle = valueToAngle(config.value, config.max_angle, config.max_value)
-  const path = getCirclePath(angle, config)
+  const path = PATH_SVGELEMENT.cloneNode(false)
+  path.setAttribute('d', getCirclePath(angle, config))
 
   setCircleAttr(path, config)
 
