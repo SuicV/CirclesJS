@@ -1,10 +1,9 @@
 {
   "name": "circlesjs",
-  "version": "1.6.0",
+  "version": "2.0.0 alpha",
   "description": "Circles library ===============",
   "main": "src/CirclesJS.js",
   "directories": {
-    "doc": "doc",
     "src": "src",
     "dist": "dist"
   },
