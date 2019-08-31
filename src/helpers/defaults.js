@@ -5,12 +5,13 @@ export const Defaults = {
   NUMBER_VALUE_TYPE: 'number',
   TEXT_VALUE_TYPE: 'text',
   /* CIRCLE STYLE */
-  STROKE_COLOR: 'black',
+  STROKE: 'black',
   STROKE_WIDTH: 1,
   STROKE_LINECAP: 'round',
   START_ANGLE: {
     top_middle: (3 / 2) * Math.PI
   },
+  FILL: 'none',
   /* FONTS */
   FONT_SIZE: 16,
   FONT_WEIGHT: 'regular',

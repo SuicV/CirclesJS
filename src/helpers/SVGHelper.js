@@ -9,17 +9,21 @@ const TEXT_SVGELEMENT = document.createElementNS('http://www.w3.org/2000/svg', '
 /**
  * FUNCTIONS
  */
-
+function createStyle (keys, config) {
+  let str = ``
+  keys.forEach(key => {
+    str += `${key.replace('_', '-')}:${config[key]};`
+  })
+  return str
+}
 /**
  * @function setCircleAttr function to set circle style
  * @param {SVGGElement} svgElement SVG element to setAttributes
  * @param {Object} config contain circle configuration
  */
 function setCircleAttr (svgElement, config) {
-  svgElement.setAttribute('stroke-width', config.stroke_width)
-  svgElement.setAttribute('stroke', config.stroke_color)
-  svgElement.setAttribute('stroke-linecap', config.stroke_linecap)
-  svgElement.setAttribute('fill', 'none')
+  const style = createStyle(['stroke_width', 'stroke', 'stroke_linecap', 'fill'], config)
+  svgElement.setAttribute('style', style)
   if (typeof config.class !== 'undefined') {
     svgElement.setAttribute('class', config.class)
   }
@@ -70,10 +74,12 @@ export function getTextValue (value, type) {
  */
 export function createText (config, value = 0) {
   const textSVGElement = TEXT_SVGELEMENT.cloneNode()
+  const style = createStyle(['font_family', 'font_size', 'font_weight', 'color'],
+    { ...config, font_size: `${config.font_size}px` })
   textSVGElement.setAttribute('text-anchor', 'middle')
   textSVGElement.setAttribute('x', config.x)
   textSVGElement.setAttribute('y', config.y + config.font_size / 4)
-  textSVGElement.setAttribute('style', `cursor:default;font-family: ${config.font_family};font-size:${config.font_size}px;font-weight:${config.font_weight};fill:${config.color};`)
+  textSVGElement.setAttribute('style', style)
 
   if (typeof config.class !== 'undefined') {
     textSVGElement.setAttribute('class', config.class)
