@@ -11,3 +11,5 @@
 * design :art: your own circle
 * use css animations
 
+## documentation
+[Documentation page](https://SuicV.github.io/CirclesJS)
