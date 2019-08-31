@@ -1,17 +1,11 @@
 import { valueToAngle } from './Maths'
 import { getCirclePath, getTextValue } from './SVGHelper'
 function linearAnimation (duration, from, to, time) {
-  return Math.round(time * ((to - from) / duration) + from).toFixed(2)
+  return (time * ((to - from) / duration) + from).toFixed(2)
 }
-export function getAnimationStep (duration) {
-  for (let i = 10; i > 0; i--) {
-    if (duration % i === 0) {
-      return i
-    }
-  }
-}
-export function fillCircleAnimation (duration, from, to, currantTime, step) {
-  if (currantTime <= duration || this.circle.value <= to) {
+export function fillCircleAnimation (time, duration, from, to) {
+  const currentTime = +new Date()
+  if (currentTime <= time + duration) {
     const angle = valueToAngle(this.circle.value,
       this.circle.max_angle, this.circle.max_value)
     // GETTING d ATTRIBUTE AND CHANGE IT
@@ -22,8 +16,7 @@ export function fillCircleAnimation (duration, from, to, currantTime, step) {
     if (typeof this.middleText !== 'undefined' && typeof this.middleText.value_type !== 'undefined') {
       this.elContent.middleText.textContent = getTextValue(this.circle.value, this.middleText.value_type)
     }
-    this.circle.value = parseInt(linearAnimation(duration, from, to, currantTime))
-    currantTime += step
-    window.requestAnimationFrame(fillCircleAnimation.bind(this, duration, from, to, currantTime, step))
+    this.circle.value = linearAnimation(duration, from, to, currentTime - time)
+    window.requestAnimationFrame(fillCircleAnimation.bind(this, time, duration, from, to))
   }
 }

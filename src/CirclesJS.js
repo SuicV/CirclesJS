@@ -2,7 +2,7 @@ import { createCircle, createText } from './helpers/SVGHelper'
 import { setDefaultCofnig } from './helpers/defaults'
 import { exist } from './helpers/Validator'
 import { getMiddleCoord } from './helpers/Geometrie'
-import { fillCircleAnimation, getAnimationStep } from './helpers/Animation'
+import { fillCircleAnimation } from './helpers/Animation'
 
 export default class Circles {
   constructor (conf) {
@@ -12,8 +12,8 @@ export default class Circles {
     exist(['el', 'radius', 'value'], { el: conf.el, ...conf.circle })
 
     // SETTING DEFAULTS CONFIGURATION
-    this.circle = setDefaultCofnig(['stroke_width', 'stroke_color',
-      'stroke_linecap'], conf.circle)
+    this.circle = setDefaultCofnig(['stroke_width', 'stroke',
+      'stroke_linecap', 'fill'], conf.circle)
 
     if (typeof conf.middleText !== 'undefined') {
       this.middleText = setDefaultCofnig(['font_size', 'font_weight',
@@ -27,7 +27,6 @@ export default class Circles {
 
     this.el = conf.el
     this.middle = getMiddleCoord(conf.el)
-
     this.isDrawed = false
   }
 
@@ -55,10 +54,10 @@ export default class Circles {
   }
 
   animate (duration = 500) {
-    const step = getAnimationStep(duration)
     const to = this.circle.value
     this.circle.value = 0
     this.draw()
-    window.requestAnimationFrame(fillCircleAnimation.bind(this, duration, this.circle.value, to, 0, step))
+    const currentTime = new Date()
+    window.requestAnimationFrame(fillCircleAnimation.bind(this, +currentTime, duration, this.circle.value, to))
   }
 }
