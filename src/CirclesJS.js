@@ -21,7 +21,7 @@ export default class Circles {
     }
 
     if (typeof conf.fillRest === 'object') {
-      this.fillRest = { ...this.circle, ...this.fillRest }
+      this.fillRest = { ...this.circle, ...conf.fillRest }
       typeof this.circle.max_value === 'undefined' ? this.fillRest.value = 100 : this.fillRest.value = this.circle.max_value
     }
 
