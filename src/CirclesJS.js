@@ -14,6 +14,7 @@ export default class Circles {
     // SETTING DEFAULTS CONFIGURATION
     this.circle = setDefaultCofnig(['stroke_width', 'stroke',
       'stroke_linecap', 'fill'], conf.circle)
+    this.circle.max_value = typeof this.circle.max_value === 'undefined' ? 100 : this.circle.max_value
 
     if (typeof conf.middleText !== 'undefined') {
       this.middleText = setDefaultCofnig(['font_size', 'font_weight',
@@ -22,7 +23,7 @@ export default class Circles {
 
     if (typeof conf.fillRest === 'object') {
       this.fillRest = { ...this.circle, ...conf.fillRest }
-      typeof this.circle.max_value === 'undefined' ? this.fillRest.value = 100 : this.fillRest.value = this.circle.max_value
+      this.fillRest.value = this.fillRest.max_value
     }
 
     this.el = conf.el

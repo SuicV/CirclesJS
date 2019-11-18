@@ -74,7 +74,7 @@ export function getTextValue (value, type) {
  */
 export function createText (config, value = 0) {
   const textSVGElement = TEXT_SVGELEMENT.cloneNode()
-  const style = createStyle(['font_family', 'font_size', 'font_weight', 'color'],
+  const style = createStyle(['font_family', 'font_size', 'font_weight', 'fill'],
     { ...config, font_size: `${config.font_size}px` })
   textSVGElement.setAttribute('text-anchor', 'middle')
   textSVGElement.setAttribute('x', config.x)
@@ -93,7 +93,7 @@ export function createText (config, value = 0) {
 }
 
 /**
- * @function create_circle function return an SVGElement containe the circle path
+ * @function createCircle function return an SVGElement containe the circle path
  * @param {Object} config containe circle configuration
  * @returns {SVGElement} svg group contain the circle
  */
